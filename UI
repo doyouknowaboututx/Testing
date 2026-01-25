@@ -834,12 +834,10 @@ function Chloex:Window(GuiConfig)
 	end
 
 	Min.Activated:Connect(function()
-		CircleClick(Min, Mouse.X, Mouse.Y)
 		DropShadowHolder.Visible = false
 	end)
-	Close.Activated:Connect(function()
-		CircleClick(Close, Mouse.X, Mouse.Y)
 
+	Close.Activated:Connect(function()
 		local Overlay = Instance.new("Frame")
 		Overlay.Size = UDim2.new(1, 0, 1, 0)
 		Overlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
