@@ -750,16 +750,16 @@ function Chloex:Window(GuiConfig)
 	DecideFrame.Name = "DecideFrame"
 	DecideFrame.Parent = Main
 
-	DeviceSeparator.AnchorPoint = Vector2.new(0.5, 0)
-	DeviceSeparator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	DeviceSeparator.BackgroundTransparency = 0.85
-	DeviceSeparator.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	DeviceSeparator.BorderSizePixel = 0
-	DeviceSeparator.Position = UDim2.new(0.2, 0, 0.55, 0)
-	DeviceSeparator.Size = UDim2.new(0.57, 0, 0, 1)
-	DeviceSeparator.Rotation = 90
-	DeviceSeparator.Name = "DeviceSeparator"
-	DeviceSeparator.Parent = Main
+	DecideSaparator.AnchorPoint = Vector2.new(0.5, 0)
+	DecideSaparator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	DecideSaparator.BackgroundTransparency = 0.85
+	DecideSaparator.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	DecideSaparator.BorderSizePixel = 0
+	DecideSaparator.Position = UDim2.new(0.2, 0, 0.55, 0)
+	DecideSaparator.Size = UDim2.new(0.57, 0, 0, 1)
+	DecideSaparator.Rotation = 90
+	DecideSaparator.Name = "DecideSeparator"
+	DecideSaparator.Parent = Main
 
 	Layers.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Layers.BackgroundTransparency = 0.9990000128746033
