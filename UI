@@ -1265,7 +1265,7 @@ function Chloex:Window(GuiConfig)
 				TweenService:Create(
 					FrameChoose,
 					TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut),
-					{ Position = UDim2.new(0, 2, 0, 9 + (Tab.LayoutOrder)) }
+					{ Position = UDim2.new(0, 2, 0, 7 + (33 * Tab.LayoutOrder)) }
 				):Play()
 
 				LayersPageLayout:JumpToIndex(Tab.LayoutOrder)
