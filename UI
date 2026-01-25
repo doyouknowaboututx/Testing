@@ -1189,7 +1189,7 @@ function Chloex:Window(GuiConfig)
 		UICorner3.CornerRadius = UDim.new(0, 4)
 		UICorner3.Parent = Tab
 
-		TabButton.Font = Enum.Font.GothamBold
+		TabButton.Font = Enum.Font.Gotham
 		TabButton.Text = ""
 		TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 		TabButton.TextSize = 13
@@ -1202,7 +1202,7 @@ function Chloex:Window(GuiConfig)
 		TabButton.Name = "TabButton"
 		TabButton.Parent = Tab
 
-		TabName.Font = Enum.Font.GothamBold
+		TabName.Font = Enum.Font.Gotham
 		TabName.Text = tostring(TabConfig.Name)
 		TabName.TextColor3 = Color3.fromRGB(255, 255, 255)
 		TabName.TextSize = 13
