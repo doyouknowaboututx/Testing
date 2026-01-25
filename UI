@@ -1145,9 +1145,6 @@ function Chloex:Window(GuiConfig)
 	local Tabs = {}
 	local CountTab = 0
 	local CountDropdown = 0
-	local ChooseFrame
-	local Switching = false
-
 	function Tabs:AddTab(TabConfig)
 		TabConfig = TabConfig or {}
 		TabConfig.Name = TabConfig.Name or "Tab"
@@ -1175,6 +1172,8 @@ function Chloex:Window(GuiConfig)
 		local UICorner3 = Instance.new("UICorner")
 		local TabButton = Instance.new("TextButton")
 		local TabName = Instance.new("TextLabel")
+		local UIStroke2 = Instance.new("UIStroke")
+		local UICorner4 = Instance.new("UICorner")
 
 		Tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Tab.BackgroundTransparency = (CountTab == 0) and 0.9200000166893005 or 0.9990000128746033
@@ -1215,87 +1214,77 @@ function Chloex:Window(GuiConfig)
 		TabName.Name = "TabName"
 		TabName.Parent = Tab
 
-		local function getIndicatorPos(tabFrame)
-			local scrollAbs = ScrollTab.AbsolutePosition
-			local tabAbs = tabFrame.AbsolutePosition
-			local localY = (tabAbs.Y - scrollAbs.Y) + 9
-			return UDim2.new(0, 2, 0, localY)
-		end
-
 		if CountTab == 0 then
 			LayersPageLayout:JumpToIndex(0)
 			NameTab.Text = TabConfig.Name
-			ChooseFrame = Instance.new("Frame")
-			ChooseFrame.Name = "ChooseFrame"
-			ChooseFrame.Parent = ScrollTab
-			ChooseFrame.BackgroundColor3 = GuiConfig.Color
-			ChooseFrame.BorderSizePixel = 0
-			ChooseFrame.Size = UDim2.new(0, 1, 0, 12)
-			ChooseFrame.BackgroundTransparency = 0
-			ChooseFrame.ZIndex = 999
 
-			local UIStroke2 = Instance.new("UIStroke")
+			local ChooseFrame = Instance.new("Frame")
+			ChooseFrame.BackgroundColor3 = GuiConfig.Color
+			ChooseFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			ChooseFrame.BorderSizePixel = 0
+			ChooseFrame.Position = UDim2.new(0, 2, 0, 9)
+			ChooseFrame.Size = UDim2.new(0, 1, 0, 12)
+			ChooseFrame.Name = "ChooseFrame"
+			ChooseFrame.Parent = Tab
+
 			UIStroke2.Color = GuiConfig.Color
 			UIStroke2.Thickness = 1.600000023841858
 			UIStroke2.Parent = ChooseFrame
 
-			local UICorner4 = Instance.new("UICorner")
 			UICorner4.Parent = ChooseFrame
-			task.defer(function()
-				ChooseFrame.Position = getIndicatorPos(Tab)
-			end)
 		end
 
 		TabButton.Activated:Connect(function()
-			if not ChooseFrame then
-				return
-			end
-			if Switching then
-				return
-			end
-			if Tab.LayoutOrder == LayersPageLayout.CurrentPage.LayoutOrder then
-				return
-			end
+			local FrameChoose
 
-			Switching = true
-
-			for _, TabFrame in ScrollTab:GetChildren() do
-				if TabFrame.Name == "Tab" then
-					TweenService:Create(
-						TabFrame,
-						TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.InOut),
-						{ BackgroundTransparency = 0.9990000128746033 }
-					):Play()
+			for _, tabFrame in ScrollTab:GetChildren() do
+				if tabFrame.Name == "Tab" then
+					local cf = tabFrame:FindFirstChild("ChooseFrame")
+					if cf then
+						FrameChoose = cf
+						break
+					end
 				end
 			end
 
-			TweenService:Create(
-				Tab,
-				TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.InOut),
-				{ BackgroundTransparency = 0.9200000166893005 }
-			):Play()
+			if FrameChoose and Tab.LayoutOrder ~= LayersPageLayout.CurrentPage.LayoutOrder then
 
-			local targetPos = getIndicatorPos(Tab)
+				for _, TabFrame in ScrollTab:GetChildren() do
+					if TabFrame.Name == "Tab" then
+						TweenService:Create(
+							TabFrame,
+							TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.InOut),
+							{ BackgroundTransparency = 0.9990000128746033 }
+						):Play()
+					end
+				end
 
-			local tOut = TweenService:Create(
-				ChooseFrame,
-				TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-				{ BackgroundTransparency = 1 }
-			)
-			tOut:Play()
-			tOut.Completed:Wait()
-			ChooseFrame.Position = targetPos
-			local tIn = TweenService:Create(
-				ChooseFrame,
-				TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-				{ BackgroundTransparency = 0 }
-			)
-			tIn:Play()
-			LayersPageLayout:JumpToIndex(Tab.LayoutOrder)
-			task.wait(0.05)
-			NameTab.Text = TabConfig.Name
-			tIn.Completed:Wait()
-			Switching = false
+				TweenService:Create(
+					Tab,
+					TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.InOut),
+					{ BackgroundTransparency = 0.9200000166893005 }
+				):Play()
+
+				FrameChoose.Parent = Tab
+				FrameChoose.Position = UDim2.new(0, 2, 0, 6)
+
+				LayersPageLayout:JumpToIndex(Tab.LayoutOrder)
+				task.wait(0.05)
+				NameTab.Text = TabConfig.Name
+				TweenService:Create(
+					FrameChoose,
+					TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut),
+					{ Size = UDim2.new(0, 1, 0, 20) }
+				):Play()
+
+				task.wait(0.2)
+
+				TweenService:Create(
+					FrameChoose,
+					TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut),
+					{ Size = UDim2.new(0, 1, 0, 12) }
+				):Play()
+			end
 		end)
 
 		--// Section
