@@ -1203,7 +1203,7 @@ function Chloex:Window(GuiConfig)
 		TabButton.Parent = Tab
 
 		TabName.Font = Enum.Font.GothamBold
-		TabName.Text = "| " .. tostring(TabConfig.Name)
+		TabName.Text = tostring(TabConfig.Name)
 		TabName.TextColor3 = Color3.fromRGB(255, 255, 255)
 		TabName.TextSize = 13
 		TabName.TextXAlignment = Enum.TextXAlignment.Left
