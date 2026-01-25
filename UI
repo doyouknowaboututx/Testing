@@ -1375,7 +1375,7 @@ function Chloex:Window(GuiConfig)
 			FeatureImg.Name = "FeatureImg"
 			FeatureImg.Parent = FeatureFrame
 
-			SectionTitle.Font = Enum.Font.GothamBold
+			SectionTitle.Font = Enum.Font.Gotham
 			SectionTitle.Text = Title
 			SectionTitle.TextColor3 = Color3.fromRGB(230.77499270439148, 230.77499270439148, 230.77499270439148)
 			SectionTitle.TextSize = 13
@@ -1605,7 +1605,7 @@ function Chloex:Window(GuiConfig)
 					ParagraphButton.Size = UDim2.new(1, -22, 0, 28)
 					ParagraphButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 					ParagraphButton.BackgroundTransparency = 0.935
-					ParagraphButton.Font = Enum.Font.GothamBold
+					ParagraphButton.Font = Enum.Font.Gotham
 					ParagraphButton.TextSize = 12
 					ParagraphButton.TextTransparency = 0.3
 					ParagraphButton.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -1725,7 +1725,7 @@ function Chloex:Window(GuiConfig)
 					inputCorner.Parent = InputFrame
 
 					InputBox = Instance.new("TextBox")
-					InputBox.Font = Enum.Font.GothamBold
+					InputBox.Font = Enum.Font.Gotham
 					InputBox.PlaceholderText = PanelConfig.Placeholder
 					InputBox.PlaceholderColor3 = Color3.fromRGB(120, 120, 120)
 					InputBox.Text = PanelConfig.Default
@@ -1746,7 +1746,7 @@ function Chloex:Window(GuiConfig)
 				end
 
 				local ButtonMain = Instance.new("TextButton")
-				ButtonMain.Font = Enum.Font.GothamBold
+				ButtonMain.Font = Enum.Font.Gotham
 				ButtonMain.Text = PanelConfig.ButtonText
 				ButtonMain.TextColor3 = Color3.fromRGB(255, 255, 255)
 				ButtonMain.TextSize = 12
@@ -1767,7 +1767,7 @@ function Chloex:Window(GuiConfig)
 
 				if PanelConfig.SubButtonText then
 					local SubButton = Instance.new("TextButton")
-					SubButton.Font = Enum.Font.GothamBold
+					SubButton.Font = Enum.Font.Gotham
 					SubButton.Text = PanelConfig.SubButtonText
 					SubButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 					SubButton.TextSize = 12
@@ -1821,7 +1821,7 @@ function Chloex:Window(GuiConfig)
 				Instance.new("UICorner", Button).CornerRadius = UDim.new(0, 4)
 
 				local MainButton = Instance.new("TextButton")
-				MainButton.Font = Enum.Font.GothamBold
+				MainButton.Font = Enum.Font.Gotham
 				MainButton.Text = ButtonConfig.Title
 				MainButton.TextSize = 12
 				MainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -1903,7 +1903,7 @@ function Chloex:Window(GuiConfig)
 					Icon.Visible = false
 
 					local SubButton = Instance.new("TextButton")
-					SubButton.Font = Enum.Font.GothamBold
+					SubButton.Font = Enum.Font.Gotham
 					SubButton.Text = ButtonConfig.SubTitle
 					SubButton.TextSize = 12
 					SubButton.TextTransparency = 0.3
@@ -1963,7 +1963,7 @@ function Chloex:Window(GuiConfig)
 				UICorner20.CornerRadius = UDim.new(0, 4)
 				UICorner20.Parent = Toggle
 
-				ToggleTitle.Font = Enum.Font.GothamBold
+				ToggleTitle.Font = Enum.Font.Gotham
 				ToggleTitle.Text = ToggleConfig.Title
 				ToggleTitle.TextSize = 13
 				ToggleTitle.TextColor3 = Color3.fromRGB(231, 231, 231)
@@ -1976,7 +1976,7 @@ function Chloex:Window(GuiConfig)
 				ToggleTitle.Parent = Toggle
 
 				local ToggleTitle2 = Instance.new("TextLabel")
-				ToggleTitle2.Font = Enum.Font.GothamBold
+				ToggleTitle2.Font = Enum.Font.Gotham
 				ToggleTitle2.Text = ToggleConfig.Title2
 				ToggleTitle2.TextSize = 12
 				ToggleTitle2.TextColor3 = Color3.fromRGB(231, 231, 231)
@@ -1988,7 +1988,7 @@ function Chloex:Window(GuiConfig)
 				ToggleTitle2.Name = "ToggleTitle2"
 				ToggleTitle2.Parent = Toggle
 
-				ToggleContent.Font = Enum.Font.GothamBold
+				ToggleContent.Font = Enum.Font.Gotham
 				ToggleContent.Text = ToggleConfig.Content
 				ToggleContent.TextColor3 = Color3.fromRGB(255, 255, 255)
 				ToggleContent.TextSize = 12
@@ -2162,7 +2162,7 @@ function Chloex:Window(GuiConfig)
 				UICorner15.CornerRadius = UDim.new(0, 4)
 				UICorner15.Parent = Slider
 
-				SliderTitle.Font = Enum.Font.GothamBold
+				SliderTitle.Font = Enum.Font.Gotham
 				SliderTitle.Text = SliderConfig.Title
 				SliderTitle.TextColor3 = Color3.fromRGB(230.77499270439148, 230.77499270439148, 230.77499270439148)
 				SliderTitle.TextSize = 13
@@ -2177,7 +2177,7 @@ function Chloex:Window(GuiConfig)
 				SliderTitle.Name = "SliderTitle"
 				SliderTitle.Parent = Slider
 
-				SliderContent.Font = Enum.Font.GothamBold
+				SliderContent.Font = Enum.Font.Gotham
 				SliderContent.Text = SliderConfig.Content
 				SliderContent.TextColor3 = Color3.fromRGB(255, 255, 255)
 				SliderContent.TextSize = 12
@@ -2220,7 +2220,7 @@ function Chloex:Window(GuiConfig)
 				UICorner16.CornerRadius = UDim.new(0, 2)
 				UICorner16.Parent = SliderInput
 
-				TextBox.Font = Enum.Font.GothamBold
+				TextBox.Font = Enum.Font.Gotham
 				TextBox.Text = "90"
 				TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 				TextBox.TextSize = 13
@@ -2391,7 +2391,7 @@ function Chloex:Window(GuiConfig)
 				UICorner.CornerRadius = UDim.new(0, 4)
 				UICorner.Parent = Input
 
-				InputTitle.Font = Enum.Font.GothamBold
+				InputTitle.Font = Enum.Font.Gotham
 				InputTitle.Text = InputConfig.Title
 				InputTitle.TextSize = 13
 				InputTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -2401,7 +2401,7 @@ function Chloex:Window(GuiConfig)
 				InputTitle.Size = UDim2.new(1, -20, 0, 14)
 				InputTitle.Parent = Input
 
-				InputTextBox.Font = Enum.Font.GothamBold
+				InputTextBox.Font = Enum.Font.Gotham
 				InputTextBox.PlaceholderText = "Input Here"
 				InputTextBox.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
 				InputTextBox.TextTransparency = 0.4
@@ -2486,7 +2486,7 @@ function Chloex:Window(GuiConfig)
 				UICorner10.CornerRadius = UDim.new(0, 4)
 				UICorner10.Parent = Dropdown
 
-				DropdownTitle.Font = Enum.Font.GothamBold
+				DropdownTitle.Font = Enum.Font.Gotham
 				DropdownTitle.Text = DropdownConfig.Title
 				DropdownTitle.TextColor3 = Color3.fromRGB(230, 230, 230)
 				DropdownTitle.TextSize = 13
@@ -2497,7 +2497,7 @@ function Chloex:Window(GuiConfig)
 				DropdownTitle.Name = "DropdownTitle"
 				DropdownTitle.Parent = Dropdown
 
-				DropdownContent.Font = Enum.Font.GothamBold
+				DropdownContent.Font = Enum.Font.Gotham
 				DropdownContent.Text = DropdownConfig.Content
 				DropdownContent.TextColor3 = Color3.fromRGB(255, 255, 255)
 				DropdownContent.TextSize = 12
@@ -2532,7 +2532,7 @@ function Chloex:Window(GuiConfig)
 					end
 				end)
 
-				OptionSelecting.Font = Enum.Font.GothamBold
+				OptionSelecting.Font = Enum.Font.Gotham
 				OptionSelecting.Text = DropdownConfig.Multi and "Select Options" or "Select Option"
 				OptionSelecting.TextColor3 = Color3.fromRGB(255, 255, 255)
 				OptionSelecting.TextSize = 12
@@ -2651,7 +2651,7 @@ function Chloex:Window(GuiConfig)
 					OptionButton.Name = "OptionButton"
 					OptionButton.Parent = Option
 
-					OptionText.Font = Enum.Font.GothamBold
+					OptionText.Font = Enum.Font.Gotham
 					OptionText.Text = label
 					OptionText.TextSize = 13
 					OptionText.TextColor3 = Color3.fromRGB(230, 230, 230)
@@ -2825,7 +2825,7 @@ function Chloex:Window(GuiConfig)
 				Label.Position = UDim2.new(0, 10, 0.5, 0)
 				Label.Size = UDim2.new(1, -20, 1, 0)
 				Label.BackgroundTransparency = 1
-				Label.Font = Enum.Font.GothamBold
+				Label.Font = Enum.Font.Gotham
 				Label.Text = "── [ " .. title .. " ] ──"
 				Label.TextColor3 = Color3.fromRGB(0, 208, 255)
 				Label.TextSize = 13
