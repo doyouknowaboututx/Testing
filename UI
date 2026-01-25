@@ -575,6 +575,7 @@ function Chloex:Window(GuiConfig)
 	local LayersTab = Instance.new("Frame")
 	local UICorner2 = Instance.new("UICorner")
 	local DecideFrame = Instance.new("Frame")
+	local DecideSaparator = Instance.new("Frame")
 	local Layers = Instance.new("Frame")
 	local UICorner6 = Instance.new("UICorner")
 	local NameTab = Instance.new("TextLabel")
@@ -748,6 +749,17 @@ function Chloex:Window(GuiConfig)
 	DecideFrame.Size = UDim2.new(1, 0, 0, 1)
 	DecideFrame.Name = "DecideFrame"
 	DecideFrame.Parent = Main
+
+	DeviceSeparator.AnchorPoint = Vector2.new(0.5, 0)
+	DeviceSeparator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	DeviceSeparator.BackgroundTransparency = 0.85
+	DeviceSeparator.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	DeviceSeparator.BorderSizePixel = 0
+	DeviceSeparator.Position = UDim2.new(0.2, 0, 0.55, 0)
+	DeviceSeparator.Size = UDim2.new(0.57, 0, 0, 1)
+	DeviceSeparator.Rotation = 90
+	DeviceSeparator.Name = "DeviceSeparator"
+	DeviceSeparator.Parent = Main
 
 	Layers.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Layers.BackgroundTransparency = 0.9990000128746033
@@ -1248,7 +1260,6 @@ function Chloex:Window(GuiConfig)
 			end
 
 			if FrameChoose and Tab.LayoutOrder ~= LayersPageLayout.CurrentPage.LayoutOrder then
-
 				for _, TabFrame in ScrollTab:GetChildren() do
 					if TabFrame.Name == "Tab" then
 						TweenService:Create(
