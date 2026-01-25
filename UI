@@ -1222,28 +1222,23 @@ function Chloex:Window(GuiConfig)
 			ChooseFrame.BackgroundColor3 = GuiConfig.Color
 			ChooseFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			ChooseFrame.BorderSizePixel = 0
-			ChooseFrame.Position = UDim2.new(0, 2, 0, 9)
 			ChooseFrame.Size = UDim2.new(0, 1, 0, 12)
 			ChooseFrame.Name = "ChooseFrame"
-			ChooseFrame.Parent = Tab
+			ChooseFrame.Parent = ScrollTab
+			ChooseFrame.ZIndex = 10
 
 			UIStroke2.Color = GuiConfig.Color
 			UIStroke2.Thickness = 1.600000023841858
 			UIStroke2.Parent = ChooseFrame
 
 			UICorner4.Parent = ChooseFrame
+
+			local y0 = (Tab.AbsolutePosition.Y - ScrollTab.AbsolutePosition.Y) + ScrollTab.CanvasPosition.Y + 9
+			ChooseFrame.Position = UDim2.new(0, 2, 0, y0)
 		end
 
 		TabButton.Activated:Connect(function()
-			local FrameChoose
-			for _, s in ScrollTab:GetChildren() do
-				for _, v in s:GetChildren() do
-					if v.Name == "ChooseFrame" then
-						FrameChoose = v
-						break
-					end
-				end
-			end
+			local FrameChoose = ScrollTab:FindFirstChild("ChooseFrame")
 
 			if FrameChoose ~= nil and Tab.LayoutOrder ~= LayersPageLayout.CurrentPage.LayoutOrder then
 				for _, TabFrame in ScrollTab:GetChildren() do
@@ -1262,10 +1257,11 @@ function Chloex:Window(GuiConfig)
 					{ BackgroundTransparency = 0.9200000166893005 }
 				):Play()
 
+				local y = (Tab.AbsolutePosition.Y - ScrollTab.AbsolutePosition.Y) + ScrollTab.CanvasPosition.Y + 9
 				TweenService:Create(
 					FrameChoose,
 					TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut),
-					{ Position = UDim2.new(0, 2, 0, 9 + (33 * Tab.LayoutOrder)) }
+					{ Position = UDim2.new(0, 2, 0, y) }
 				):Play()
 
 				LayersPageLayout:JumpToIndex(Tab.LayoutOrder)
