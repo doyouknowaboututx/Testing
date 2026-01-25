@@ -1236,16 +1236,19 @@ function Chloex:Window(GuiConfig)
 
 		TabButton.Activated:Connect(function()
 			local FrameChoose
-			for _, s in ScrollTab:GetChildren() do
-				for _, v in s:GetChildren() do
-					if v.Name == "ChooseFrame" then
-						FrameChoose = v
+
+			for _, tabFrame in ScrollTab:GetChildren() do
+				if tabFrame.Name == "Tab" then
+					local cf = tabFrame:FindFirstChild("ChooseFrame")
+					if cf then
+						FrameChoose = cf
 						break
 					end
 				end
 			end
 
-			if FrameChoose ~= nil and Tab.LayoutOrder ~= LayersPageLayout.CurrentPage.LayoutOrder then
+			if FrameChoose and Tab.LayoutOrder ~= LayersPageLayout.CurrentPage.LayoutOrder then
+				-- reset background semua tab
 				for _, TabFrame in ScrollTab:GetChildren() do
 					if TabFrame.Name == "Tab" then
 						TweenService:Create(
@@ -1262,16 +1265,12 @@ function Chloex:Window(GuiConfig)
 					{ BackgroundTransparency = 0.9200000166893005 }
 				):Play()
 
-				TweenService:Create(
-					FrameChoose,
-					TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut),
-					{ Position = UDim2.new(0, 2, 0, 7 + 33) }
-				):Play()
+				FrameChoose.Parent = Tab
+				FrameChoose.Position = UDim2.new(0, 2, 0, 9)
 
 				LayersPageLayout:JumpToIndex(Tab.LayoutOrder)
 				task.wait(0.05)
 				NameTab.Text = TabConfig.Name
-
 				TweenService:Create(
 					FrameChoose,
 					TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut),
