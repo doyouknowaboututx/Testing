@@ -758,7 +758,7 @@ function Chloex:Window(GuiConfig)
 	DecideSaparator.Position = UDim2.new(0.2, 0, 0.55, 0)
 	DecideSaparator.Size = UDim2.new(0.57, 0, 0, 1)
 	DecideSaparator.Rotation = 90
-	DecideSaparator.Name = "DecideSeparator"
+	DecideSaparator.Name = "DecideSaparator"
 	DecideSaparator.Parent = Main
 
 	Layers.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
