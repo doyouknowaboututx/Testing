@@ -1809,9 +1809,6 @@ function Chloex:Window(GuiConfig)
 				ButtonConfig.SubTitle = ButtonConfig.SubTitle or nil
 				ButtonConfig.SubCallback = ButtonConfig.SubCallback or function() end
 
-				local ICON_IDLE = "rbxassetid://115552801804948"
-				local ICON_CLICK = "rbxassetid://71771678979400"
-
 				local Button = Instance.new("Frame")
 				Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 				Button.BackgroundTransparency = 0.935
@@ -1822,7 +1819,7 @@ function Chloex:Window(GuiConfig)
 
 				local MainButton = Instance.new("TextButton")
 				MainButton.Font = Enum.Font.Gotham
-				MainButton.Text = ButtonConfig.Title
+				MainButton.Text = tostring(ButtonConfig.Title)
 				MainButton.TextSize = 12
 				MainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 				MainButton.TextTransparency = 0.3
@@ -1831,80 +1828,18 @@ function Chloex:Window(GuiConfig)
 				MainButton.Size = ButtonConfig.SubTitle and UDim2.new(0.5, -12, 1, -10) or UDim2.new(1, -12, 1, -10)
 				MainButton.Position = UDim2.new(0, 6, 0, 5)
 				MainButton.Parent = Button
-				MainButton.AutoButtonColor = false
-				MainButton.ClipsDescendants = true
+				MainButton.AutoButtonColor = true
 				MainButton.ZIndex = 10
 				Instance.new("UICorner", MainButton).CornerRadius = UDim.new(0, 4)
 
-				local Aurora = Instance.new("ImageLabel")
-				Aurora.BackgroundTransparency = 1
-				Aurora.Size = UDim2.new(2, 0, 2, 0)
-				Aurora.Position = UDim2.new(-0.5, 0, -0.5, 0)
-				Aurora.Image = "rbxassetid://5553946656"
-				Aurora.ImageTransparency = 1
-				Aurora.ZIndex = 11
-				Aurora.Parent = MainButton
-
-				local Gradient = Instance.new("UIGradient")
-				Gradient.Color = ColorSequence.new({
-					ColorSequenceKeypoint.new(0, Color3.fromRGB(180, 230, 255)),
-					ColorSequenceKeypoint.new(0.5, Color3.fromRGB(90, 170, 255)),
-					ColorSequenceKeypoint.new(1, Color3.fromRGB(40, 120, 220)),
-				})
-				Gradient.Parent = Aurora
-
-				local Icon = Instance.new("ImageLabel")
-				Icon.BackgroundTransparency = 1
-				Icon.Size = UDim2.new(0, 20, 0, 20)
-				Icon.AnchorPoint = Vector2.new(0, 0.5)
-				Icon.Position = UDim2.new(0, 0, 0.5, 0)
-				Icon.Image = ICON_IDLE
-				Icon.ZIndex = 12
-				Icon.Parent = MainButton
-
-				local function auroraFlash(btn, icon)
-					if icon then
-						icon.Image = ICON_CLICK
-					end
-					Aurora.ImageTransparency = 0.25
-					Gradient.Rotation = math.random(0, 360)
-
-					TweenService:Create(Aurora, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-						ImageTransparency = 0.85,
-					}):Play()
-
-					TweenService:Create(Gradient, TweenInfo.new(0.6, Enum.EasingStyle.Linear), {
-						Rotation = Gradient.Rotation + 120,
-					}):Play()
-
-					TweenService:Create(btn, TweenInfo.new(0.08, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-						BackgroundTransparency = 0.85,
-					}):Play()
-
-					task.delay(0.15, function()
-						TweenService
-							:Create(btn, TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-								BackgroundTransparency = 0.935,
-							})
-							:Play()
-						if icon then
-							icon.Image = ICON_IDLE
-						end
-					end)
-				end
-
-				MainButton.MouseButton1Down:Connect(function()
-					auroraFlash(MainButton, Icon)
+				MainButton.MouseButton1Click:Connect(function()
+					pcall(ButtonConfig.Callback)
 				end)
 
-				MainButton.MouseButton1Click:Connect(ButtonConfig.Callback)
-
 				if ButtonConfig.SubTitle then
-					Icon.Visible = false
-
 					local SubButton = Instance.new("TextButton")
 					SubButton.Font = Enum.Font.Gotham
-					SubButton.Text = ButtonConfig.SubTitle
+					SubButton.Text = tostring(ButtonConfig.SubTitle)
 					SubButton.TextSize = 12
 					SubButton.TextTransparency = 0.3
 					SubButton.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -1913,20 +1848,18 @@ function Chloex:Window(GuiConfig)
 					SubButton.Size = UDim2.new(0.5, -8, 1, -10)
 					SubButton.Position = UDim2.new(0.5, 2, 0, 5)
 					SubButton.Parent = Button
-					SubButton.AutoButtonColor = false
-					SubButton.ClipsDescendants = true
+					SubButton.AutoButtonColor = true
 					SubButton.ZIndex = 10
 					Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
 
-					SubButton.MouseButton1Down:Connect(function()
-						auroraFlash(SubButton)
+					SubButton.MouseButton1Click:Connect(function()
+						pcall(ButtonConfig.SubCallback)
 					end)
-
-					SubButton.MouseButton1Click:Connect(ButtonConfig.SubCallback)
 				end
 
 				CountItem += 1
 			end
+			
 			function Items:AddToggle(ToggleConfig)
 				local ToggleConfig = ToggleConfig or {}
 				ToggleConfig.Title = ToggleConfig.Title or "Title"
@@ -1967,7 +1900,7 @@ function Chloex:Window(GuiConfig)
 				ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
 				ToggleTitle.TextYAlignment = Enum.TextYAlignment.Top
 				ToggleTitle.BackgroundTransparency = 1
-				ToggleTitle.Position = UDim2.new(0, 10, 0, 10)
+				ToggleTitle.Position = UDim2.new(0, 10, 0, 15)
 				ToggleTitle.Size = UDim2.new(1, -100, 0, 13)
 				ToggleTitle.Name = "ToggleTitle"
 				ToggleTitle.Parent = Toggle
