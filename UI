@@ -2984,4 +2984,4 @@ function Chloex:Window(GuiConfig)
 	return Tabs
 end
 
-return Chloex
+return Chloe
