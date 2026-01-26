@@ -1860,8 +1860,6 @@ function Chloex:Window(GuiConfig)
 				MainButton.ZIndex = 10
 				Instance.new("UICorner", MainButton).CornerRadius = UDim.new(0, 4)
 
-				HoverPulse(MainButton)
-
 				MainButton.MouseButton1Click:Connect(function()
 					pcall(ButtonConfig.Callback)
 				end)
@@ -1881,8 +1879,6 @@ function Chloex:Window(GuiConfig)
 					SubButton.AutoButtonColor = true
 					SubButton.ZIndex = 10
 					Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
-
-					HoverPulse(SubButton)
 
 					SubButton.MouseButton1Click:Connect(function()
 						pcall(ButtonConfig.SubCallback)
