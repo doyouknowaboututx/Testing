@@ -2312,7 +2312,7 @@ function Chloex:Window(GuiConfig)
 				InputTitle.Parent = Input
 
 				InputTextBox.Font = Enum.Font.Gotham
-				InputTextBox.PlaceholderText = "Input"
+				InputTextBox.PlaceholderText = "Write you input there"
 				InputTextBox.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
 				InputTextBox.TextTransparency = 0.4
 				InputTextBox.Text = InputConfig.Default
