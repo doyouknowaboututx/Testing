@@ -2277,7 +2277,7 @@ function Chloex:Window(GuiConfig)
 				Input.BackgroundTransparency = 0.935
 				Input.BorderSizePixel = 0
 				Input.LayoutOrder = CountItem
-				Input.Size = UDim2.new(1, 0, 0, 46)
+				Input.Size = UDim2.new(1, 0, 0, 58)
 				Input.Parent = SectionAdd
 
 				UICorner.CornerRadius = UDim.new(0, 4)
@@ -2289,8 +2289,8 @@ function Chloex:Window(GuiConfig)
 				InputTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
 				InputTitle.TextXAlignment = Enum.TextXAlignment.Left
 				InputTitle.BackgroundTransparency = 1
-				InputTitle.Position = UDim2.new(0, 10, 0, 0)
-				InputTitle.Size = UDim2.new(1, -150, 1, 0)
+				InputTitle.Position = UDim2.new(0, 10, 0, 6)
+				InputTitle.Size = UDim2.new(1, -20, 0, 14)
 				InputTitle.Parent = Input
 
 				InputTextBox.Font = Enum.Font.GothamBold
@@ -2301,12 +2301,10 @@ function Chloex:Window(GuiConfig)
 				InputTextBox.TextSize = 11
 				InputTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 				InputTextBox.BackgroundTransparency = 0.92
-				InputTextBox.TextXAlignment = Enum.TextXAlignment.Center
-				InputTextBox.ClearTextOnFocus = false
-				InputTextBox.AnchorPoint = Vector2.new(1, 0.5)
-				InputTextBox.Position = UDim2.new(1, -10, 0.5, 0)
-				InputTextBox.Size = UDim2.new(0, 120, 0, 24)
 				InputTextBox.TextXAlignment = Enum.TextXAlignment.Left
+				InputTextBox.ClearTextOnFocus = false
+				InputTextBox.Position = UDim2.new(0, 10, 0, 26)
+				InputTextBox.Size = UDim2.new(1, -20, 0, 24)
 				InputTextBox.ClipsDescendants = true
 				InputTextBox.TextTruncate = Enum.TextTruncate.AtEnd
 				InputTextBox.Parent = Input
