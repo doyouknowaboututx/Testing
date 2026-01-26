@@ -1830,86 +1830,108 @@ function Chloex:Window(GuiConfig)
 				end)
 			end
 
-			local function Pulse(ui)
-				local originalSize = ui.Size
-				local originalTransparency = ui.TextTransparency
+			local function PressEffect(btn)
+	local basePos = btn.Position
+	local baseSize = btn.Size
+	local baseTextTr = btn.TextTransparency
 
-				local tween1 =
-					TweenService:Create(ui, TweenInfo.new(0.08, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-						Size = originalSize - UDim2.new(0, 2, 0, 2),
-						TextTransparency = 0,
-					})
+	local down = TweenService:Create(
+		btn,
+		TweenInfo.new(0.06, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+		{
+			Position = basePos + UDim2.new(0, 0, 0, 2),
+			Size = baseSize - UDim2.new(0, 2, 0, 2),
+			TextTransparency = 0
+		}
+	)
 
-				local tween2 =
-					TweenService:Create(ui, TweenInfo.new(0.08, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-						Size = originalSize,
-						TextTransparency = originalTransparency,
-					})
+	local up = TweenService:Create(
+		btn,
+		TweenInfo.new(0.09, Enum.EasingStyle.Back, Enum.EasingDirection.Out),
+		{
+			Position = basePos,
+			Size = baseSize,
+			TextTransparency = baseTextTr
+		}
+	)
 
-				tween1:Play()
-				tween1.Completed:Wait()
-				tween2:Play()
-			end
+	down:Play()
+	down.Completed:Wait()
+	up:Play()
+end
 
-			function Items:AddButton(ButtonConfig)
-				ButtonConfig = ButtonConfig or {}
-				ButtonConfig.Title = ButtonConfig.Title or "Confirm"
-				ButtonConfig.Callback = ButtonConfig.Callback or function() end
-				ButtonConfig.SubTitle = ButtonConfig.SubTitle or nil
-				ButtonConfig.SubCallback = ButtonConfig.SubCallback or function() end
+function Items:AddButton(ButtonConfig)
+	ButtonConfig = ButtonConfig or {}
+	ButtonConfig.Title = ButtonConfig.Title or "Confirm"
+	ButtonConfig.Callback = ButtonConfig.Callback or function() end
+	ButtonConfig.SubTitle = ButtonConfig.SubTitle or nil
+	ButtonConfig.SubCallback = ButtonConfig.SubCallback or function() end
 
-				local Button = Instance.new("Frame")
-				Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				Button.BackgroundTransparency = 0.935
-				Button.Size = UDim2.new(1, 0, 0, 40)
-				Button.LayoutOrder = CountItem
-				Button.Parent = SectionAdd
-				Instance.new("UICorner", Button).CornerRadius = UDim.new(0, 4)
+	local Button = Instance.new("Frame")
+	Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Button.BackgroundTransparency = 0.935
+	Button.Size = UDim2.new(1, 0, 0, 40)
+	Button.LayoutOrder = CountItem
+	Button.Parent = SectionAdd
+	Instance.new("UICorner", Button).CornerRadius = UDim.new(0, 4)
 
-				local MainButton = Instance.new("TextButton")
-				MainButton.Font = Enum.Font.Gotham
-				MainButton.Text = tostring(ButtonConfig.Title)
-				MainButton.TextSize = 12
-				MainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-				MainButton.TextTransparency = 0.3
-				MainButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				MainButton.BackgroundTransparency = 1
-				MainButton.Size = ButtonConfig.SubTitle and UDim2.new(0.5, -12, 1, -10) or UDim2.new(1, -12, 1, -10)
-				MainButton.Position = UDim2.new(0, 6, 0, 5)
-				MainButton.Parent = Button
-				MainButton.AutoButtonColor = true
-				MainButton.ZIndex = 10
-				Instance.new("UICorner", MainButton).CornerRadius = UDim.new(0, 4)
+	local Padding = 6
+	local Gap = 4
 
-				MainButton.MouseButton1Click:Connect(function()
-					Pulse(MainButton)
-					pcall(ButtonConfig.Callback)
-				end)
+	local MainButton = Instance.new("TextButton")
+	MainButton.Font = Enum.Font.Gotham
+	MainButton.Text = tostring(ButtonConfig.Title)
+	MainButton.TextSize = 12
+	MainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+	MainButton.TextTransparency = 0.3
+	MainButton.BackgroundTransparency = 1
+	MainButton.Parent = Button
+	MainButton.AutoButtonColor = true
+	MainButton.ZIndex = 10
+	Instance.new("UICorner", MainButton).CornerRadius = UDim.new(0, 4)
 
-				if ButtonConfig.SubTitle then
-					local SubButton = Instance.new("TextButton")
-					SubButton.Font = Enum.Font.Gotham
-					SubButton.Text = tostring(ButtonConfig.SubTitle)
-					SubButton.TextSize = 12
-					SubButton.TextTransparency = 0.3
-					SubButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-					SubButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-					SubButton.BackgroundTransparency = 1
-					SubButton.Size = UDim2.new(0.5, -8, 1, -10)
-					SubButton.Position = UDim2.new(0.5, 2, 0, 5)
-					SubButton.Parent = Button
-					SubButton.AutoButtonColor = true
-					SubButton.ZIndex = 10
-					Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
+	if ButtonConfig.SubTitle then
+		MainButton.Size = UDim2.new(0.5, -Padding - Gap, 1, -10)
+		MainButton.Position = UDim2.new(0, Padding, 0, 5)
+	else
+		MainButton.Size = UDim2.new(1, -Padding * 2, 1, -10)
+		MainButton.Position = UDim2.new(0, Padding, 0, 5)
+	end
 
-					SubButton.MouseButton1Click:Connect(function()
-						Pulse(SubButton)
-						pcall(ButtonConfig.SubCallback)
-					end)
-				end
+	MainButton.MouseButton1Down:Connect(function()
+		PressEffect(MainButton)
+	end)
 
-				CountItem += 1
-			end
+	MainButton.MouseButton1Click:Connect(function()
+		pcall(ButtonConfig.Callback)
+	end)
+
+	if ButtonConfig.SubTitle then
+		local SubButton = Instance.new("TextButton")
+		SubButton.Font = Enum.Font.Gotham
+		SubButton.Text = tostring(ButtonConfig.SubTitle)
+		SubButton.TextSize = 12
+		SubButton.TextTransparency = 0.3
+		SubButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+		SubButton.BackgroundTransparency = 1
+		SubButton.Size = UDim2.new(0.5, -Padding - Gap, 1, -10)
+		SubButton.Position = UDim2.new(0.5, Gap, 0, 5)
+		SubButton.Parent = Button
+		SubButton.AutoButtonColor = true
+		SubButton.ZIndex = 10
+		Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
+
+		SubButton.MouseButton1Down:Connect(function()
+			PressEffect(SubButton)
+		end)
+
+		SubButton.MouseButton1Click:Connect(function()
+			pcall(ButtonConfig.SubCallback)
+		end)
+	end
+
+	CountItem += 1
+end
 
 			function Items:AddToggle(ToggleConfig)
 				local ToggleConfig = ToggleConfig or {}
