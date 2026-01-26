@@ -1870,7 +1870,7 @@ function Chloex:Window(GuiConfig)
 				Catch.Parent = PopupLayer
 
 				local Box = Instance.new("Frame")
-				Box.Size = UDim2.new(0, 220, 0, 70)
+				Box.Size = UDim2.new(0, 180, 0, 48)
 				Box.AnchorPoint = Vector2.new(0.5, 0.5)
 				Box.Position = UDim2.fromScale(0.5, 0.5)
 				Box.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
@@ -1884,27 +1884,30 @@ function Chloex:Window(GuiConfig)
 				UIStroke.Color = Color3.fromRGB(255, 255, 255)
 				UIStroke.Parent = Box
 
-				local Confirm = Instance.new("TextButton")
-				Confirm.Text = "Confirm"
-				Confirm.Font = Enum.Font.Gotham
-				Confirm.TextSize = 12
-				Confirm.BackgroundTransparency = 1
-				Confirm.TextColor3 = Color3.fromRGB(255, 255, 255)
-				Confirm.Size = UDim2.new(0.5, -6, 1, -12)
-				Confirm.Position = UDim2.new(0, 6, 0, 6)
-				Confirm.ZIndex = 10001
-				Confirm.Parent = Box
+				local function createIconButton(parent, posX, color)
+					local Btn = Instance.new("TextButton")
+					Btn.Text = ""
+					Btn.AutoButtonColor = false
+					Btn.Size = UDim2.new(0.5, -6, 1, -10)
+					Btn.Position = UDim2.new(posX, 6, 0, 5)
+					Btn.BackgroundColor3 = color
+					Btn.ZIndex = 10001
+					Btn.Parent = parent
+					Instance.new("UICorner", Btn).CornerRadius = UDim.new(0, 4)
 
-				local Cancel = Instance.new("TextButton")
-				Cancel.Text = "Cancel"
-				Cancel.Font = Enum.Font.Gotham
-				Cancel.TextSize = 12
-				Cancel.BackgroundTransparency = 1
-				Cancel.TextColor3 = Color3.fromRGB(255, 255, 255)
-				Cancel.Size = UDim2.new(0.5, -6, 1, -12)
-				Cancel.Position = UDim2.new(0.5, 0, 0, 6)
-				Cancel.ZIndex = 10001
-				Cancel.Parent = Box
+					local Icon = Instance.new("Frame")
+					Icon.Size = UDim2.new(0, 14, 0, 14)
+					Icon.Position = UDim2.fromScale(0.5, 0.5)
+					Icon.AnchorPoint = Vector2.new(0.5, 0.5)
+					Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					Icon.ZIndex = 10002
+					Icon.Parent = Btn
+
+					return Btn
+				end
+
+				local Confirm = createIconButton(Box, 0, Color3.fromRGB(60, 170, 110))
+				local Cancel = createIconButton(Box, 0.5, Color3.fromRGB(170, 60, 60))
 
 				local function close()
 					PopupLayer:Destroy()
