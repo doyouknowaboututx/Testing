@@ -754,8 +754,8 @@ function Chloex:Window(GuiConfig)
 	DecideSaparator.BackgroundTransparency = 0.85
 	DecideSaparator.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	DecideSaparator.BorderSizePixel = 0
-	DecideSaparator.Position = UDim2.new(1, 0, 0, 38)
-	DecideSaparator.Size = UDim2.new(0, 1, 1, -38)
+	DecideSaparator.Position = UDim2.new(0.95, 0, 0, -11)
+	DecideSaparator.Size = UDim2.new(0, 1, 1, 19)
 	DecideSaparator.Rotation = 0
 	DecideSaparator.Name = "DecideSaparator"
 	DecideSaparator.Parent = LayersTab
