@@ -1907,7 +1907,7 @@ function Chloex:Window(GuiConfig)
 					SubButton.TextSize = 12
 					SubButton.TextTransparency = 0.3
 					SubButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-					SubButton.BackgroundTransparency = 1
+					SubButton.BackgroundTransparency = 0.935
 					SubButton.Size = UDim2.new(0.5, -Padding - Gap, 1, -10)
 					SubButton.Position = UDim2.new(0.5, Gap, 0, 5)
 					SubButton.Parent = Button
