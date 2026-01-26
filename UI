@@ -1945,7 +1945,7 @@ function Chloex:Window(GuiConfig)
 				local ToggleButton = Instance.new("TextButton")
 				local FeatureFrame2 = Instance.new("Frame")
 				local UIStroke8 = Instance.new("UIStroke")
-				local ToggleCircle = Instance.new("Frame")
+				local ToggleCheckmark = Instance.new("TextLabel")
 
 				Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 				Toggle.BackgroundTransparency = 0.935
@@ -1978,7 +1978,7 @@ function Chloex:Window(GuiConfig)
 				FeatureFrame2.BackgroundTransparency = 0.92
 				FeatureFrame2.BorderSizePixel = 0
 				FeatureFrame2.Position = UDim2.new(1, -15, 0.5, 0)
-				FeatureFrame2.Size = UDim2.new(0, 30, 0, 15)
+				FeatureFrame2.Size = UDim2.new(0, 30, 0, 30) 
 				FeatureFrame2.Name = "FeatureFrame"
 				FeatureFrame2.Parent = Toggle
 
@@ -1987,11 +1987,15 @@ function Chloex:Window(GuiConfig)
 				UIStroke8.Transparency = 0.9
 				UIStroke8.Parent = FeatureFrame2
 
-				ToggleCircle.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
-				ToggleCircle.BorderSizePixel = 0
-				ToggleCircle.Size = UDim2.new(0, 14, 0, 14)
-				ToggleCircle.Name = "ToggleCircle"
-				ToggleCircle.Parent = FeatureFrame2
+				ToggleCheckmark.Text = "✓"
+				ToggleCheckmark.Font = Enum.Font.Gotham
+				ToggleCheckmark.TextSize = 18
+				ToggleCheckmark.TextColor3 = Color3.fromRGB(255, 255, 255)
+				ToggleCheckmark.BackgroundTransparency = 1
+				ToggleCheckmark.Size = UDim2.new(0, 20, 0, 20)
+				ToggleCheckmark.Position = UDim2.new(0.5, -10, 0.5, -10)
+				ToggleCheckmark.Visible = ToggleFunc.Value
+				ToggleCheckmark.Parent = FeatureFrame2
 
 				ToggleButton.Activated:Connect(function()
 					ToggleFunc.Value = not ToggleFunc.Value
@@ -2009,33 +2013,17 @@ function Chloex:Window(GuiConfig)
 					end
 					ConfigData[configKey] = Value
 					if Value then
-						TweenService:Create(ToggleTitle, TweenInfo.new(0.2), { TextColor3 = GuiConfig.Color }):Play()
-						TweenService:Create(ToggleCircle, TweenInfo.new(0.2), { Position = UDim2.new(0, 15, 0, 0) })
-							:Play()
 						TweenService
-							:Create(UIStroke8, TweenInfo.new(0.2), { Color = GuiConfig.Color, Transparency = 0 })
+							:Create(ToggleCheckmark, TweenInfo.new(0.2), { TextColor3 = Color3.fromRGB(0, 255, 0) })
 							:Play()
-						TweenService:Create(
-							FeatureFrame2,
-							TweenInfo.new(0.2),
-							{ BackgroundColor3 = GuiConfig.Color, BackgroundTransparency = 0 }
-						):Play()
+						ToggleCheckmark.Visible = true
+						FeatureFrame2.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
 					else
 						TweenService
-							:Create(ToggleTitle, TweenInfo.new(0.2), { TextColor3 = Color3.fromRGB(230, 230, 230) })
+							:Create(ToggleCheckmark, TweenInfo.new(0.2), { TextColor3 = Color3.fromRGB(255, 255, 255) })
 							:Play()
-						TweenService:Create(ToggleCircle, TweenInfo.new(0.2), { Position = UDim2.new(0, 0, 0, 0) })
-							:Play()
-						TweenService:Create(
-							UIStroke8,
-							TweenInfo.new(0.2),
-							{ Color = Color3.fromRGB(255, 255, 255), Transparency = 0.9 }
-						):Play()
-						TweenService:Create(
-							FeatureFrame2,
-							TweenInfo.new(0.2),
-							{ BackgroundColor3 = Color3.fromRGB(255, 255, 255), BackgroundTransparency = 0.92 }
-						):Play()
+						ToggleCheckmark.Visible = false
+						FeatureFrame2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 					end
 				end
 
