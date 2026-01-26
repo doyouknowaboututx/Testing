@@ -1878,7 +1878,7 @@ function Chloex:Window(GuiConfig)
 				MainButton.TextSize = 12
 				MainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 				MainButton.TextTransparency = 0.3
-				MainButton.BackgroundTransparency = 1
+				MainButton.BackgroundTransparency = 0.935
 				MainButton.Parent = Button
 				MainButton.AutoButtonColor = true
 				MainButton.ZIndex = 10
@@ -2059,7 +2059,6 @@ function Chloex:Window(GuiConfig)
 			function Items:AddSlider(SliderConfig)
 				local SliderConfig = SliderConfig or {}
 				SliderConfig.Title = SliderConfig.Title or "Slider"
-				SliderConfig.Content = SliderConfig.Content or ""
 				SliderConfig.Increment = SliderConfig.Increment or 1
 				SliderConfig.Min = SliderConfig.Min or 0
 				SliderConfig.Max = SliderConfig.Max or 100
@@ -2076,7 +2075,6 @@ function Chloex:Window(GuiConfig)
 				local Slider = Instance.new("Frame")
 				local UICorner15 = Instance.new("UICorner")
 				local SliderTitle = Instance.new("TextLabel")
-				local SliderContent = Instance.new("TextLabel")
 				local SliderInput = Instance.new("Frame")
 				local UICorner16 = Instance.new("UICorner")
 				local TextBox = Instance.new("TextBox")
@@ -2084,11 +2082,9 @@ function Chloex:Window(GuiConfig)
 				local UICorner17 = Instance.new("UICorner")
 				local SliderDraggable = Instance.new("Frame")
 				local UICorner18 = Instance.new("UICorner")
-				local UIStroke5 = Instance.new("UIStroke")
 				local SliderCircle = Instance.new("Frame")
 				local UICorner19 = Instance.new("UICorner")
 				local UIStroke6 = Instance.new("UIStroke")
-				local UIStroke7 = Instance.new("UIStroke")
 
 				Slider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 				Slider.BackgroundTransparency = 0.9350000023841858
@@ -2117,35 +2113,7 @@ function Chloex:Window(GuiConfig)
 				SliderTitle.Name = "SliderTitle"
 				SliderTitle.Parent = Slider
 
-				SliderContent.Font = Enum.Font.Gotham
-				SliderContent.Text = SliderConfig.Content
-				SliderContent.TextColor3 = Color3.fromRGB(255, 255, 255)
-				SliderContent.TextSize = 12
-				SliderContent.TextTransparency = 0.6000000238418579
-				SliderContent.TextXAlignment = Enum.TextXAlignment.Left
-				SliderContent.TextYAlignment = Enum.TextYAlignment.Bottom
-				SliderContent.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				SliderContent.BackgroundTransparency = 0.9990000128746033
-				SliderContent.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				SliderContent.BorderSizePixel = 0
-				SliderContent.Position = UDim2.new(0, 10, 0, 25)
-				SliderContent.Size = UDim2.new(1, -180, 0, 12)
-				SliderContent.Name = "SliderContent"
-				SliderContent.Parent = Slider
-
-				SliderContent.Size =
-					UDim2.new(1, -180, 0, 12 + (12 * (SliderContent.TextBounds.X // SliderContent.AbsoluteSize.X)))
-				SliderContent.TextWrapped = true
-				Slider.Size = UDim2.new(1, 0, 0, SliderContent.AbsoluteSize.Y + 33)
-
-				SliderContent:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
-					SliderContent.TextWrapped = false
-					SliderContent.Size =
-						UDim2.new(1, -180, 0, 12 + (12 * (SliderContent.TextBounds.X // SliderContent.AbsoluteSize.X)))
-					Slider.Size = UDim2.new(1, 0, 0, SliderContent.AbsoluteSize.Y + 33)
-					SliderContent.TextWrapped = true
-					UpdateSizeSection()
-				end)
+				Slider.Size = UDim2.new(1, 0, 0, 46)
 
 				SliderInput.AnchorPoint = Vector2.new(0, 0.5)
 				SliderInput.BackgroundColor3 = GuiConfig.Color
@@ -2218,6 +2186,7 @@ function Chloex:Window(GuiConfig)
 					end
 					return Result
 				end
+
 				function SliderFunc:Set(Value)
 					Value = math.clamp(Round(Value, SliderConfig.Increment), SliderConfig.Min, SliderConfig.Max)
 					SliderFunc.Value = Value
@@ -2233,7 +2202,6 @@ function Chloex:Window(GuiConfig)
 
 					SliderConfig.Callback(Value)
 					ConfigData[configKey] = Value
-					-- Auto-save disabled - use manual save
 				end
 
 				SliderFrame.InputBegan:Connect(function(Input)
@@ -2247,6 +2215,7 @@ function Chloex:Window(GuiConfig)
 							TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
 							{ Size = UDim2.new(0, 14, 0, 14) }
 						):Play()
+
 						local SizeScale = math.clamp(
 							(Input.Position.X - SliderFrame.AbsolutePosition.X) / SliderFrame.AbsoluteSize.X,
 							0,
@@ -2297,6 +2266,7 @@ function Chloex:Window(GuiConfig)
 						SliderFunc:Set(SliderConfig.Min)
 					end
 				end)
+
 				SliderFunc:Set(SliderConfig.Default)
 				CountItem = CountItem + 1
 				Elements[configKey] = SliderFunc
@@ -2325,7 +2295,7 @@ function Chloex:Window(GuiConfig)
 				Input.BackgroundTransparency = 0.935
 				Input.BorderSizePixel = 0
 				Input.LayoutOrder = CountItem
-				Input.Size = UDim2.new(1, 0, 0, 58)
+				Input.Size = UDim2.new(1, 0, 0, 46)
 				Input.Parent = SectionAdd
 
 				UICorner.CornerRadius = UDim.new(0, 4)
@@ -2337,23 +2307,23 @@ function Chloex:Window(GuiConfig)
 				InputTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
 				InputTitle.TextXAlignment = Enum.TextXAlignment.Left
 				InputTitle.BackgroundTransparency = 1
-				InputTitle.Position = UDim2.new(0, 10, 0, 6)
-				InputTitle.Size = UDim2.new(1, -20, 0, 14)
+				InputTitle.Position = UDim2.new(0, 10, 0, 0)
+				InputTitle.Size = UDim2.new(1, -150, 1, 0)
 				InputTitle.Parent = Input
 
 				InputTextBox.Font = Enum.Font.Gotham
-				InputTextBox.PlaceholderText = "Input Here"
+				InputTextBox.PlaceholderText = "Input"
 				InputTextBox.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
 				InputTextBox.TextTransparency = 0.4
 				InputTextBox.Text = InputConfig.Default
 				InputTextBox.TextSize = 12
 				InputTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 				InputTextBox.BackgroundTransparency = 0.92
-				InputTextBox.TextXAlignment = Enum.TextXAlignment.Left
-				InputTextBox.Position = UDim2.new(0, 10, 0, 26)
-				InputTextBox.Size = UDim2.new(1, -20, 0, 24)
-				InputTextBox.ClipsDescendants = true
+				InputTextBox.TextXAlignment = Enum.TextXAlignment.Center
 				InputTextBox.ClearTextOnFocus = false
+				InputTextBox.AnchorPoint = Vector2.new(1, 0.5)
+				InputTextBox.Position = UDim2.new(1, -10, 0.5, 0)
+				InputTextBox.Size = UDim2.new(0, 120, 0, 24)
 				InputTextBox.Parent = Input
 
 				InputTextBox.Focused:Connect(function()
@@ -2384,9 +2354,8 @@ function Chloex:Window(GuiConfig)
 			end
 
 			function Items:AddDropdown(DropdownConfig)
-				local DropdownConfig = DropdownConfig or {}
+				DropdownConfig = DropdownConfig or {}
 				DropdownConfig.Title = DropdownConfig.Title or "Title"
-				DropdownConfig.Content = DropdownConfig.Content or ""
 				DropdownConfig.Multi = DropdownConfig.Multi or false
 				DropdownConfig.Options = DropdownConfig.Options or {}
 				DropdownConfig.Default = DropdownConfig.Default or (DropdownConfig.Multi and {} or nil)
@@ -2403,7 +2372,6 @@ function Chloex:Window(GuiConfig)
 				local DropdownButton = Instance.new("TextButton")
 				local UICorner10 = Instance.new("UICorner")
 				local DropdownTitle = Instance.new("TextLabel")
-				local DropdownContent = Instance.new("TextLabel")
 				local SelectOptionsFrame = Instance.new("Frame")
 				local UICorner11 = Instance.new("UICorner")
 				local OptionSelecting = Instance.new("TextLabel")
@@ -2432,23 +2400,10 @@ function Chloex:Window(GuiConfig)
 				DropdownTitle.TextSize = 13
 				DropdownTitle.TextXAlignment = Enum.TextXAlignment.Left
 				DropdownTitle.BackgroundTransparency = 1
-				DropdownTitle.Position = UDim2.new(0, 10, 0, 10)
-				DropdownTitle.Size = UDim2.new(1, -180, 0, 13)
+				DropdownTitle.Position = UDim2.new(0, 10, 0, 0)
+				DropdownTitle.Size = UDim2.new(1, -180, 1, 0)
 				DropdownTitle.Name = "DropdownTitle"
 				DropdownTitle.Parent = Dropdown
-
-				DropdownContent.Font = Enum.Font.Gotham
-				DropdownContent.Text = DropdownConfig.Content
-				DropdownContent.TextColor3 = Color3.fromRGB(255, 255, 255)
-				DropdownContent.TextSize = 12
-				DropdownContent.TextTransparency = 0.6
-				DropdownContent.TextWrapped = true
-				DropdownContent.TextXAlignment = Enum.TextXAlignment.Left
-				DropdownContent.BackgroundTransparency = 1
-				DropdownContent.Position = UDim2.new(0, 10, 0, 25)
-				DropdownContent.Size = UDim2.new(1, -180, 0, 12)
-				DropdownContent.Name = "DropdownContent"
-				DropdownContent.Parent = Dropdown
 
 				SelectOptionsFrame.AnchorPoint = Vector2.new(1, 0.5)
 				SelectOptionsFrame.BackgroundTransparency = 0.95
@@ -2460,17 +2415,6 @@ function Chloex:Window(GuiConfig)
 
 				UICorner11.CornerRadius = UDim.new(0, 4)
 				UICorner11.Parent = SelectOptionsFrame
-
-				DropdownButton.Activated:Connect(function()
-					if not MoreBlur.Visible then
-						MoreBlur.Visible = true
-						DropPageLayout:JumpToIndex(SelectOptionsFrame.LayoutOrder)
-						TweenService:Create(MoreBlur, TweenInfo.new(0.3), { BackgroundTransparency = 1 }):Play()
-						TweenService
-							:Create(DropdownSelect, TweenInfo.new(0.3), { Position = UDim2.new(1, -11, 0.5, 0) })
-							:Play()
-					end
-				end)
 
 				OptionSelecting.Font = Enum.Font.Gotham
 				OptionSelecting.Text = DropdownConfig.Multi and "Select Options" or "Select Option"
@@ -2494,29 +2438,25 @@ function Chloex:Window(GuiConfig)
 				OptionImg.Name = "OptionImg"
 				OptionImg.Parent = SelectOptionsFrame
 
+				DropdownButton.Activated:Connect(function()
+					if not MoreBlur.Visible then
+						MoreBlur.Visible = true
+						DropPageLayout:JumpToIndex(SelectOptionsFrame.LayoutOrder)
+						TweenService:Create(MoreBlur, TweenInfo.new(0.3), { BackgroundTransparency = 1 }):Play()
+						TweenService
+							:Create(DropdownSelect, TweenInfo.new(0.3), { Position = UDim2.new(1, -11, 0.5, 0) })
+							:Play()
+					end
+				end)
+
 				local DropdownContainer = Instance.new("Frame")
 				DropdownContainer.Size = UDim2.new(1, 0, 1, 0)
 				DropdownContainer.BackgroundTransparency = 1
 				DropdownContainer.Parent = DropdownFolder
 
-				local SearchBox = Instance.new("TextBox")
-				SearchBox.PlaceholderText = "Search"
-				SearchBox.Font = Enum.Font.Gotham
-				SearchBox.Text = ""
-				SearchBox.TextSize = 12
-				SearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-				SearchBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-				SearchBox.BackgroundTransparency = 0.9
-				SearchBox.BorderSizePixel = 0
-				SearchBox.Size = UDim2.new(1, 0, 0, 25)
-				SearchBox.Position = UDim2.new(0, 0, 0, 0)
-				SearchBox.ClearTextOnFocus = false
-				SearchBox.Name = "SearchBox"
-				SearchBox.Parent = DropdownContainer
-
 				local ScrollSelect = Instance.new("ScrollingFrame")
-				ScrollSelect.Size = UDim2.new(1, 0, 1, -30)
-				ScrollSelect.Position = UDim2.new(0, 0, 0, 30)
+				ScrollSelect.Size = UDim2.new(1, 0, 1, 0)
+				ScrollSelect.Position = UDim2.new(0, 0, 0, 0)
 				ScrollSelect.ScrollBarImageTransparency = 1
 				ScrollSelect.BorderSizePixel = 0
 				ScrollSelect.BackgroundTransparency = 1
@@ -2525,30 +2465,17 @@ function Chloex:Window(GuiConfig)
 				ScrollSelect.Name = "ScrollSelect"
 				ScrollSelect.Parent = DropdownContainer
 
-				local UIListLayout4 = Instance.new("UIListLayout")
-				UIListLayout4.Padding = UDim.new(0, 3)
-				UIListLayout4.SortOrder = Enum.SortOrder.LayoutOrder
-				UIListLayout4.Parent = ScrollSelect
+				local UIListLayout = Instance.new("UIListLayout")
+				UIListLayout.Padding = UDim.new(0, 3)
+				UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+				UIListLayout.Parent = ScrollSelect
 
-				UIListLayout4:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-					ScrollSelect.CanvasSize = UDim2.new(0, 0, 0, UIListLayout4.AbsoluteContentSize.Y)
+				UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+					ScrollSelect.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y)
 				end)
-
-				SearchBox:GetPropertyChangedSignal("Text"):Connect(function()
-					local query = string.lower(SearchBox.Text)
-					for _, option in pairs(ScrollSelect:GetChildren()) do
-						if option.Name == "Option" and option:FindFirstChild("OptionText") then
-							local text = string.lower(option.OptionText.Text)
-							option.Visible = query == "" or string.find(text, query, 1, true)
-						end
-					end
-					ScrollSelect.CanvasSize = UDim2.new(0, 0, 0, UIListLayout4.AbsoluteContentSize.Y)
-				end)
-
-				local DropCount = 0
 
 				function DropdownFunc:Clear()
-					for _, DropFrame in ScrollSelect:GetChildren() do
+					for _, DropFrame in ipairs(ScrollSelect:GetChildren()) do
 						if DropFrame.Name == "Option" then
 							DropFrame:Destroy()
 						end
@@ -2556,7 +2483,6 @@ function Chloex:Window(GuiConfig)
 					DropdownFunc.Value = DropdownConfig.Multi and {} or nil
 					DropdownFunc.Options = {}
 					OptionSelecting.Text = DropdownConfig.Multi and "Select Options" or "Select Option"
-					DropCount = 0
 				end
 
 				function DropdownFunc:AddOption(option)
@@ -2619,6 +2545,7 @@ function Chloex:Window(GuiConfig)
 
 					OptionButton.Activated:Connect(function()
 						if DropdownConfig.Multi then
+							DropdownFunc.Value = type(DropdownFunc.Value) == "table" and DropdownFunc.Value or {}
 							if not table.find(DropdownFunc.Value, value) then
 								table.insert(DropdownFunc.Value, value)
 							else
@@ -2646,7 +2573,7 @@ function Chloex:Window(GuiConfig)
 					ConfigData[configKey] = DropdownFunc.Value
 
 					local texts = {}
-					for _, Drop in ScrollSelect:GetChildren() do
+					for _, Drop in ipairs(ScrollSelect:GetChildren()) do
 						if Drop.Name == "Option" and Drop:FindFirstChild("OptionText") then
 							local v = Drop:GetAttribute("RealValue")
 							local selected = DropdownConfig.Multi and table.find(DropdownFunc.Value, v)
@@ -2656,17 +2583,22 @@ function Chloex:Window(GuiConfig)
 								TweenService
 									:Create(Drop.ChooseFrame, TweenInfo.new(0.2), { Size = UDim2.new(0, 1, 0, 12) })
 									:Play()
-								TweenService:Create(Drop.ChooseFrame.UIStroke, TweenInfo.new(0.2), { Transparency = 0 })
-									:Play()
+								if Drop.ChooseFrame:FindFirstChild("UIStroke") then
+									TweenService
+										:Create(Drop.ChooseFrame.UIStroke, TweenInfo.new(0.2), { Transparency = 0 })
+										:Play()
+								end
 								TweenService:Create(Drop, TweenInfo.new(0.2), { BackgroundTransparency = 0.935 }):Play()
 								table.insert(texts, Drop.OptionText.Text)
 							else
 								TweenService
 									:Create(Drop.ChooseFrame, TweenInfo.new(0.1), { Size = UDim2.new(0, 0, 0, 0) })
 									:Play()
-								TweenService
-									:Create(Drop.ChooseFrame.UIStroke, TweenInfo.new(0.1), { Transparency = 0.999 })
-									:Play()
+								if Drop.ChooseFrame:FindFirstChild("UIStroke") then
+									TweenService
+										:Create(Drop.ChooseFrame.UIStroke, TweenInfo.new(0.1), { Transparency = 0.999 })
+										:Play()
+								end
 								TweenService:Create(Drop, TweenInfo.new(0.1), { BackgroundTransparency = 0.999 }):Play()
 							end
 						end
@@ -2703,6 +2635,16 @@ function Chloex:Window(GuiConfig)
 					end
 					DropdownFunc.Options = newList
 					DropdownFunc:Set(selecting)
+				end
+
+				function DropdownFunc:Refresh(newList)
+					newList = newList or {}
+					DropdownFunc:Clear()
+					for _, v in ipairs(newList) do
+						DropdownFunc:AddOption(v)
+					end
+					DropdownFunc.Options = newList
+					DropdownFunc:Set(DropdownConfig.Multi and {} or nil)
 				end
 
 				DropdownFunc:SetValues(DropdownFunc.Options, DropdownFunc.Value)
