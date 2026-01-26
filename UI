@@ -1928,93 +1928,133 @@ function Chloex:Window(GuiConfig)
 				CountItem += 1
 			end
 			function Items:AddToggle(ToggleConfig)
-	local ToggleConfig = ToggleConfig or {}
-	ToggleConfig.Title = ToggleConfig.Title or "Title"
-	ToggleConfig.Default = ToggleConfig.Default or false
-	ToggleConfig.Callback = ToggleConfig.Callback or function() end
+				local ToggleConfig = ToggleConfig or {}
+				ToggleConfig.Title = ToggleConfig.Title or "Title"
+				ToggleConfig.Default = ToggleConfig.Default or false
+				ToggleConfig.Callback = ToggleConfig.Callback or function() end
 
-	local configKey = "Toggle_" .. tostring(ToggleConfig.Title)
-	if ConfigData[configKey] ~= nil then
-		ToggleConfig.Default = ConfigData[configKey]
-	end
+				local configKey = "Toggle_" .. ToggleConfig.Title
+				if ConfigData[configKey] ~= nil then
+					ToggleConfig.Default = ConfigData[configKey]
+				end
 
-	local ToggleFunc = { Value = ToggleConfig.Default }
+				local ToggleFunc = { Value = ToggleConfig.Default }
 
-	local Toggle = Instance.new("Frame")
-	local ToggleTitle = Instance.new("TextLabel")
-	local ToggleButton = Instance.new("TextButton")
-	local Box = Instance.new("Frame")
-	local Stroke = Instance.new("UIStroke")
-	local Check = Instance.new("ImageLabel")
+				local Toggle = Instance.new("Frame")
+				local UICorner20 = Instance.new("UICorner")
+				local ToggleTitle = Instance.new("TextLabel")
+				local ToggleButton = Instance.new("TextButton")
+				local FeatureFrame2 = Instance.new("Frame")
+				local UICorner22 = Instance.new("UICorner")
+				local UIStroke8 = Instance.new("UIStroke")
+				local ToggleCircle = Instance.new("Frame")
+				local UICorner23 = Instance.new("UICorner")
 
-	Toggle.Size = UDim2.new(1, 0, 0, 40)
-	Toggle.BackgroundTransparency = 0.935
-	Toggle.BorderSizePixel = 0
-	Toggle.LayoutOrder = CountItem
-	Toggle.Parent = SectionAdd
+				Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				Toggle.BackgroundTransparency = 0.935
+				Toggle.BorderSizePixel = 0
+				Toggle.LayoutOrder = CountItem
+				Toggle.Name = "Toggle"
+				Toggle.Parent = SectionAdd
 
-	ToggleTitle.Text = tostring(ToggleConfig.Title)
-	ToggleTitle.Font = Enum.Font.Gotham
-	ToggleTitle.TextSize = 13
-	ToggleTitle.TextColor3 = Color3.fromRGB(231,231,231)
-	ToggleTitle.BackgroundTransparency = 1
-	ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
-	ToggleTitle.Size = UDim2.new(1, -60, 1, 0)
-	ToggleTitle.Position = UDim2.new(0, 10, 0, 0)
-	ToggleTitle.Parent = Toggle
+				UICorner20.CornerRadius = UDim.new(0, 4)
+				UICorner20.Parent = Toggle
 
-	ToggleButton.Text = ""
-	ToggleButton.BackgroundTransparency = 1
-	ToggleButton.Size = UDim2.new(1, 0, 1, 0)
-	ToggleButton.Parent = Toggle
+				ToggleTitle.Font = Enum.Font.Gotham
+				ToggleTitle.Text = ToggleConfig.Title
+				ToggleTitle.TextSize = 13
+				ToggleTitle.TextColor3 = Color3.fromRGB(231, 231, 231)
+				ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
+				ToggleTitle.TextYAlignment = Enum.TextYAlignment.Top
+				ToggleTitle.BackgroundTransparency = 1
+				ToggleTitle.Position = UDim2.new(0, 10, 0, 10)
+				ToggleTitle.Size = UDim2.new(1, -100, 0, 13)
+				ToggleTitle.Name = "ToggleTitle"
+				ToggleTitle.Parent = Toggle
+				Toggle.Size = UDim2.new(1, 0, 0, 46)
 
-	Box.Size = UDim2.new(0, 22, 0, 22)
-	Box.Position = UDim2.new(1, -12, 0.5, 0)
-	Box.AnchorPoint = Vector2.new(1, 0.5)
-	Box.BackgroundTransparency = 1
-	Box.Parent = Toggle
+				ToggleButton.Font = Enum.Font.SourceSans
+				ToggleButton.Text = ""
+				ToggleButton.BackgroundTransparency = 1
+				ToggleButton.Size = UDim2.new(1, 0, 1, 0)
+				ToggleButton.Name = "ToggleButton"
+				ToggleButton.Parent = Toggle
 
-	Stroke.Thickness = 2
-	Stroke.Transparency = 0.75
-	Stroke.Color = Color3.fromRGB(255,255,255)
-	Stroke.Parent = Box
+				FeatureFrame2.AnchorPoint = Vector2.new(1, 0.5)
+				FeatureFrame2.BackgroundTransparency = 0.92
+				FeatureFrame2.BorderSizePixel = 0
+				FeatureFrame2.Position = UDim2.new(1, -15, 0.5, 0)
+				FeatureFrame2.Size = UDim2.new(0, 30, 0, 15)
+				FeatureFrame2.Name = "FeatureFrame"
+				FeatureFrame2.Parent = Toggle
 
-	Check.Image = "rbxassetid://7173527603"
-	Check.Size = UDim2.new(1, -6, 1, -6)
-	Check.Position = UDim2.new(0, 3, 0, 3)
-	Check.BackgroundTransparency = 1
-	Check.Visible = false
-	Check.Parent = Box
+				UICorner22.Parent = FeatureFrame2
 
-	function ToggleFunc:Set(Value)
-		ToggleFunc.Value = Value == true
-		ConfigData[configKey] = ToggleFunc.Value
+				UIStroke8.Color = Color3.fromRGB(255, 255, 255)
+				UIStroke8.Thickness = 2
+				UIStroke8.Transparency = 0.9
+				UIStroke8.Parent = FeatureFrame2
 
-		if ToggleFunc.Value then
-			Check.Visible = true
-			Box.BackgroundTransparency = 0
-			Box.BackgroundColor3 = GuiConfig.Color
-			Stroke.Transparency = 1
-			TweenService:Create(ToggleTitle, TweenInfo.new(0.2), { TextColor3 = GuiConfig.Color }):Play()
-		else
-			Check.Visible = false
-			Box.BackgroundTransparency = 1
-			Stroke.Transparency = 0.75
-			TweenService:Create(ToggleTitle, TweenInfo.new(0.2), { TextColor3 = Color3.fromRGB(231,231,231) }):Play()
-		end
+				ToggleCircle.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+				ToggleCircle.BorderSizePixel = 0
+				ToggleCircle.Size = UDim2.new(0, 14, 0, 14)
+				ToggleCircle.Name = "ToggleCircle"
+				ToggleCircle.Parent = FeatureFrame2
 
-		pcall(ToggleConfig.Callback, ToggleFunc.Value)
-	end
+				UICorner23.CornerRadius = UDim.new(0, 15)
+				UICorner23.Parent = ToggleCircle
 
-	ToggleButton.Activated:Connect(function()
-		ToggleFunc:Set(not ToggleFunc.Value)
-	end)
+				ToggleButton.Activated:Connect(function()
+					ToggleFunc.Value = not ToggleFunc.Value
+					ToggleFunc:Set(ToggleFunc.Value)
+				end)
 
-	ToggleFunc:Set(ToggleFunc.Value)
-	CountItem += 1
-	Elements[configKey] = ToggleFunc
-	return ToggleFunc
-end
+				function ToggleFunc:Set(Value)
+					if typeof(ToggleConfig.Callback) == "function" then
+						local ok, err = pcall(function()
+							ToggleConfig.Callback(Value)
+						end)
+						if not ok then
+							warn("Toggle Callback error:", err)
+						end
+					end
+					ConfigData[configKey] = Value
+					if Value then
+						TweenService:Create(ToggleTitle, TweenInfo.new(0.2), { TextColor3 = GuiConfig.Color }):Play()
+						TweenService:Create(ToggleCircle, TweenInfo.new(0.2), { Position = UDim2.new(0, 15, 0, 0) })
+							:Play()
+						TweenService
+							:Create(UIStroke8, TweenInfo.new(0.2), { Color = GuiConfig.Color, Transparency = 0 })
+							:Play()
+						TweenService:Create(
+							FeatureFrame2,
+							TweenInfo.new(0.2),
+							{ BackgroundColor3 = GuiConfig.Color, BackgroundTransparency = 0 }
+						):Play()
+					else
+						TweenService
+							:Create(ToggleTitle, TweenInfo.new(0.2), { TextColor3 = Color3.fromRGB(230, 230, 230) })
+							:Play()
+						TweenService:Create(ToggleCircle, TweenInfo.new(0.2), { Position = UDim2.new(0, 0, 0, 0) })
+							:Play()
+						TweenService:Create(
+							UIStroke8,
+							TweenInfo.new(0.2),
+							{ Color = Color3.fromRGB(255, 255, 255), Transparency = 0.9 }
+						):Play()
+						TweenService:Create(
+							FeatureFrame2,
+							TweenInfo.new(0.2),
+							{ BackgroundColor3 = Color3.fromRGB(255, 255, 255), BackgroundTransparency = 0.92 }
+						):Play()
+					end
+				end
+
+				ToggleFunc:Set(ToggleFunc.Value)
+				CountItem = CountItem + 1
+				Elements[configKey] = ToggleFunc
+				return ToggleFunc
+			end
 
 			function Items:AddSlider(SliderConfig)
 				local SliderConfig = SliderConfig or {}
