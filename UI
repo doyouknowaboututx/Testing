@@ -1854,80 +1854,12 @@ function Chloex:Window(GuiConfig)
 				up:Play()
 			end
 
-			local function ShowConfirmPopup(parentGui, onConfirm)
-				local PopupLayer = Instance.new("Frame")
-				PopupLayer.BackgroundTransparency = 1
-				PopupLayer.Size = UDim2.fromScale(1, 1)
-				PopupLayer.ZIndex = 9999
-				PopupLayer.Parent = parentGui
-
-				local Catch = Instance.new("TextButton")
-				Catch.Text = ""
-				Catch.AutoButtonColor = false
-				Catch.BackgroundTransparency = 1
-				Catch.Size = UDim2.fromScale(1, 1)
-				Catch.ZIndex = 9999
-				Catch.Parent = PopupLayer
-
-				local Box = Instance.new("Frame")
-				Box.Size = UDim2.new(0, 180, 0, 48)
-				Box.AnchorPoint = Vector2.new(0.5, 0.5)
-				Box.Position = UDim2.fromScale(0.5, 0.5)
-				Box.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-				Box.ZIndex = 10000
-				Box.Parent = PopupLayer
-				Instance.new("UICorner", Box).CornerRadius = UDim.new(0, 6)
-
-				local UIStroke = Instance.new("UIStroke")
-				UIStroke.Thickness = 1
-				UIStroke.Transparency = 0.4
-				UIStroke.Color = Color3.fromRGB(255, 255, 255)
-				UIStroke.Parent = Box
-
-				local function createIconButton(parent, posX, color)
-					local Btn = Instance.new("TextButton")
-					Btn.Text = ""
-					Btn.AutoButtonColor = false
-					Btn.Size = UDim2.new(0.5, -6, 1, -10)
-					Btn.Position = UDim2.new(posX, 6, 0, 5)
-					Btn.BackgroundColor3 = color
-					Btn.ZIndex = 10001
-					Btn.Parent = parent
-					Instance.new("UICorner", Btn).CornerRadius = UDim.new(0, 4)
-
-					local Icon = Instance.new("Frame")
-					Icon.Size = UDim2.new(0, 14, 0, 14)
-					Icon.Position = UDim2.fromScale(0.5, 0.5)
-					Icon.AnchorPoint = Vector2.new(0.5, 0.5)
-					Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-					Icon.ZIndex = 10002
-					Icon.Parent = Btn
-
-					return Btn
-				end
-
-				local Confirm = createIconButton(Box, 0, Color3.fromRGB(60, 170, 110))
-				local Cancel = createIconButton(Box, 0.5, Color3.fromRGB(170, 60, 60))
-
-				local function close()
-					PopupLayer:Destroy()
-				end
-
-				Catch.MouseButton1Click:Connect(close)
-				Cancel.MouseButton1Click:Connect(close)
-
-				Confirm.MouseButton1Click:Connect(function()
-					pcall(onConfirm)
-					close()
-				end)
-			end
-
 			function Items:AddButton(ButtonConfig)
 				ButtonConfig = ButtonConfig or {}
-				ButtonConfig.Title = ButtonConfig.Title or "Confirm"
+				ButtonConfig.Title = ButtonConfig.Title or "Submit"
 				ButtonConfig.Callback = ButtonConfig.Callback or function() end
-				ButtonConfig.SubTitle = ButtonConfig.SubTitle or nil
-				ButtonConfig.SubCallback = ButtonConfig.SubCallback or function() end
+				ButtonConfig.ConfirmText = ButtonConfig.ConfirmText or "Confirm"
+				ButtonConfig.CancelText = ButtonConfig.CancelText or "Cancel"
 
 				local Button = Instance.new("Frame")
 				Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1939,6 +1871,7 @@ function Chloex:Window(GuiConfig)
 
 				local Padding = 6
 				local Gap = 4
+				local content = false
 
 				local MainButton = Instance.new("TextButton")
 				MainButton.Font = Enum.Font.Gotham
@@ -1947,59 +1880,60 @@ function Chloex:Window(GuiConfig)
 				MainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 				MainButton.TextTransparency = 0.3
 				MainButton.BackgroundTransparency = 1
+				MainButton.Size = UDim2.new(1, -Padding * 2, 1, -10)
+				MainButton.Position = UDim2.new(0, Padding, 0, 5)
 				MainButton.Parent = Button
 				MainButton.AutoButtonColor = true
 				MainButton.ZIndex = 10
 				Instance.new("UICorner", MainButton).CornerRadius = UDim.new(0, 4)
 
-				if ButtonConfig.SubTitle then
-					MainButton.Size = UDim2.new(0.5, -Padding - Gap, 1, -10)
-					MainButton.Position = UDim2.new(0, Padding, 0, 5)
-				else
+				local SubButton = Instance.new("TextButton")
+				SubButton.Font = Enum.Font.Gotham
+				SubButton.Text = ButtonConfig.CancelText
+				SubButton.TextSize = 12
+				SubButton.TextTransparency = 0.3
+				SubButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+				SubButton.BackgroundTransparency = 0.935
+				SubButton.Size = UDim2.new(0.5, -Padding - Gap, 1, -10)
+				SubButton.Position = UDim2.new(0.5, Gap, 0, 5)
+				SubButton.Parent = Button
+				SubButton.Visible = false
+				SubButton.AutoButtonColor = true
+				SubButton.ZIndex = 10
+				Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
+
+				local function Reset()
+					content = false
+					MainButton.Text = ButtonConfig.Title
 					MainButton.Size = UDim2.new(1, -Padding * 2, 1, -10)
 					MainButton.Position = UDim2.new(0, Padding, 0, 5)
+					SubButton.Visible = false
 				end
 
 				MainButton.MouseButton1Down:Connect(function()
 					PressEffect(MainButton)
 				end)
 
+				SubButton.MouseButton1Down:Connect(function()
+					PressEffect(SubButton)
+				end)
+
 				MainButton.MouseButton1Click:Connect(function()
-					if ButtonConfig.Content == true then
-						local screenGui = MainButton:FindFirstAncestorOfClass("ScreenGui")
-						if screenGui then
-							ShowConfirmPopup(screenGui, ButtonConfig.Callback)
-						else
-							pcall(ButtonConfig.Callback)
-						end
+					if not content then
+						content = true
+						MainButton.Text = ButtonConfig.ConfirmText
+						MainButton.Size = UDim2.new(0.5, -Padding - Gap, 1, -10)
+						MainButton.Position = UDim2.new(0, Padding, 0, 5)
+						SubButton.Visible = true
 					else
 						pcall(ButtonConfig.Callback)
+						Reset()
 					end
 				end)
 
-				if ButtonConfig.SubTitle then
-					local SubButton = Instance.new("TextButton")
-					SubButton.Font = Enum.Font.Gotham
-					SubButton.Text = tostring(ButtonConfig.SubTitle)
-					SubButton.TextSize = 12
-					SubButton.TextTransparency = 0.3
-					SubButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-					SubButton.BackgroundTransparency = 1
-					SubButton.Size = UDim2.new(0.5, -Padding - Gap, 1, -10)
-					SubButton.Position = UDim2.new(0.5, Gap, 0, 5)
-					SubButton.Parent = Button
-					SubButton.AutoButtonColor = true
-					SubButton.ZIndex = 10
-					Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
-
-					SubButton.MouseButton1Down:Connect(function()
-						PressEffect(SubButton)
-					end)
-
-					SubButton.MouseButton1Click:Connect(function()
-						pcall(ButtonConfig.SubCallback)
-					end)
-				end
+				SubButton.MouseButton1Click:Connect(function()
+					Reset()
+				end)
 
 				CountItem += 1
 			end
