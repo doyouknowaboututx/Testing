@@ -1901,32 +1901,25 @@ function Chloex:Window(GuiConfig)
 				end)
 
 				if ButtonConfig.SubTitle then
-					local RightFrame = Instance.new("Frame")
-					RightFrame.Size = UDim2.new(0.5, -Padding - Gap, 1, -10)
-					RightFrame.Position = UDim2.new(0.5, Gap, 0, 5)
-					RightFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-					RightFrame.BackgroundTransparency = 0.95
-					RightFrame.Parent = Button
-					RightFrame.ZIndex = 9
-					Instance.new("UICorner", RightFrame).CornerRadius = UDim.new(0, 4)
+					local SubButton = Instance.new("TextButton")
+					SubButton.Font = Enum.Font.Gotham
+					SubButton.Text = tostring(ButtonConfig.SubTitle)
+					SubButton.TextSize = 12
+					SubButton.TextTransparency = 0.3
+					SubButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+					SubButton.BackgroundTransparency = 1
+					SubButton.Size = UDim2.new(0.5, -Padding - Gap, 1, -10)
+					SubButton.Position = UDim2.new(0.5, Gap, 0, 5)
+					SubButton.Parent = Button
+					SubButton.AutoButtonColor = true
+					SubButton.ZIndex = 10
+					Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
 
-					local RightButton = Instance.new("TextButton")
-					RightButton.Font = Enum.Font.Gotham
-					RightButton.Text = tostring(ButtonConfig.SubTitle)
-					RightButton.TextSize = 12
-					RightButton.TextTransparency = 0.3
-					RightButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-					RightButton.BackgroundTransparency = 1
-					RightButton.Size = UDim2.new(1, 0, 1, 0)
-					RightButton.Parent = RightFrame
-					RightButton.AutoButtonColor = true
-					RightButton.ZIndex = 10
-
-					RightButton.MouseButton1Down:Connect(function()
-						PressEffect(RightFrame)
+					SubButton.MouseButton1Down:Connect(function()
+						PressEffect(SubButton)
 					end)
 
-					RightButton.MouseButton1Click:Connect(function()
+					SubButton.MouseButton1Click:Connect(function()
 						pcall(ButtonConfig.SubCallback)
 					end)
 				end
