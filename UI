@@ -1863,13 +1863,13 @@ function Chloex:Window(GuiConfig)
 
 				local Button = Instance.new("Frame")
 				Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				Button.BackgroundTransparency = ButtonConfig.SubTitle and 0.935 or 1
+				Button.BackgroundTransparency = 0.935
 				Button.Size = UDim2.new(1, 0, 0, 40)
 				Button.LayoutOrder = CountItem
 				Button.Parent = SectionAdd
 				Instance.new("UICorner", Button).CornerRadius = UDim.new(0, 4)
 
-				local Padding = 6
+				local Padding = 4
 				local Gap = 4
 
 				local MainButton = Instance.new("TextButton")
@@ -1878,7 +1878,7 @@ function Chloex:Window(GuiConfig)
 				MainButton.TextSize = 12
 				MainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 				MainButton.TextTransparency = 0.3
-				MainButton.BackgroundTransparency = 1
+				MainButton.BackgroundTransparency = 0.935
 				MainButton.Parent = Button
 				MainButton.AutoButtonColor = true
 				MainButton.ZIndex = 10
@@ -1893,7 +1893,7 @@ function Chloex:Window(GuiConfig)
 				end
 
 				MainButton.MouseButton1Down:Connect(function()
-					PressEffect(Button)
+					PressEffect(MainButton)
 				end)
 
 				MainButton.MouseButton1Click:Connect(function()
@@ -1907,7 +1907,7 @@ function Chloex:Window(GuiConfig)
 					SubButton.TextSize = 12
 					SubButton.TextTransparency = 0.3
 					SubButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-					SubButton.BackgroundTransparency = 1
+					SubButton.BackgroundTransparency = 0.935
 					SubButton.Size = UDim2.new(0.5, -Padding - Gap, 1, -10)
 					SubButton.Position = UDim2.new(0.5, Gap, 0, 5)
 					SubButton.Parent = Button
@@ -1916,7 +1916,7 @@ function Chloex:Window(GuiConfig)
 					Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
 
 					SubButton.MouseButton1Down:Connect(function()
-						PressEffect(Button)
+						PressEffect(SubButton)
 					end)
 
 					SubButton.MouseButton1Click:Connect(function()
