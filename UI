@@ -1958,7 +1958,7 @@ function Chloex:Window(GuiConfig)
 	ToggleTitle.TextSize = 13
 	ToggleTitle.TextColor3 = Color3.fromRGB(231,231,231)
 	ToggleTitle.BackgroundTransparency = 1
-	ToggleTitle.TextXAlignment = Left
+	ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
 	ToggleTitle.Size = UDim2.new(1, -60, 1, 0)
 	ToggleTitle.Position = UDim2.new(0, 10, 0, 0)
 	ToggleTitle.Parent = Toggle
@@ -1995,16 +1995,12 @@ function Chloex:Window(GuiConfig)
 			Box.BackgroundTransparency = 0
 			Box.BackgroundColor3 = GuiConfig.Color
 			Stroke.Transparency = 1
-			TweenService:Create(ToggleTitle, TweenInfo.new(0.2), {
-				TextColor3 = GuiConfig.Color
-			}):Play()
+			TweenService:Create(ToggleTitle, TweenInfo.new(0.2), { TextColor3 = GuiConfig.Color }):Play()
 		else
 			Check.Visible = false
 			Box.BackgroundTransparency = 1
 			Stroke.Transparency = 0.75
-			TweenService:Create(ToggleTitle, TweenInfo.new(0.2), {
-				TextColor3 = Color3.fromRGB(231,231,231)
-			}):Play()
+			TweenService:Create(ToggleTitle, TweenInfo.new(0.2), { TextColor3 = Color3.fromRGB(231,231,231) }):Play()
 		end
 
 		pcall(ToggleConfig.Callback, ToggleFunc.Value)
