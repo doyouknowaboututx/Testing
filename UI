@@ -1835,15 +1835,15 @@ function Chloex:Window(GuiConfig)
 				MainButton.MouseButton1Click:Connect(function()
 					TweenService:Create(
 						Button,
-						TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+						TweenInfo.new(0.10, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
 						{ BackgroundTransparency = 0.95 }
 					):Play()
 
 					pcall(ButtonConfig.Callback)
-					task.delay(0.1, function()
+					task.delay(0.01, function()
 						TweenService:Create(
 							Button,
-							TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+							TweenInfo.new(0.10, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
 							{ BackgroundTransparency = 0.935 }
 						):Play()
 					end)
@@ -1868,16 +1868,16 @@ function Chloex:Window(GuiConfig)
 					SubButton.MouseButton1Click:Connect(function()
 						TweenService:Create(
 							Button,
-							TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+							TweenInfo.new(0.10, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
 							{ BackgroundTransparency = 0.95 }
 						):Play()
 
 						pcall(ButtonConfig.SubCallback)
 
-						task.delay(0.1, function()
+						task.delay(0.01, function()
 							TweenService:Create(
 								Button,
-								TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+								TweenInfo.new(0.10, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
 								{ BackgroundTransparency = 0.935 }
 							):Play()
 						end)
