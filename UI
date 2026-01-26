@@ -1824,7 +1824,7 @@ function Chloex:Window(GuiConfig)
 				MainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 				MainButton.TextTransparency = 0.3
 				MainButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				MainButton.BackgroundTransparency = 0.935
+				MainButton.BackgroundTransparency = 1
 				MainButton.Size = ButtonConfig.SubTitle and UDim2.new(0.5, -12, 1, -10) or UDim2.new(1, -12, 1, -10)
 				MainButton.Position = UDim2.new(0, 6, 0, 5)
 				MainButton.Parent = Button
@@ -1844,7 +1844,7 @@ function Chloex:Window(GuiConfig)
 					SubButton.TextTransparency = 0.3
 					SubButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 					SubButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-					SubButton.BackgroundTransparency = 0.935
+					SubButton.BackgroundTransparency = 1
 					SubButton.Size = UDim2.new(0.5, -8, 1, -10)
 					SubButton.Position = UDim2.new(0.5, 2, 0, 5)
 					SubButton.Parent = Button
@@ -1859,7 +1859,7 @@ function Chloex:Window(GuiConfig)
 
 				CountItem += 1
 			end
-			
+
 			function Items:AddToggle(ToggleConfig)
 				local ToggleConfig = ToggleConfig or {}
 				ToggleConfig.Title = ToggleConfig.Title or "Title"
@@ -2688,7 +2688,7 @@ function Chloex:Window(GuiConfig)
 				Background.Parent = SubSection
 				Background.Size = UDim2.new(1, 0, 1, 0)
 				Background.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				Background.BackgroundTransparency = 0.935
+				Background.BackgroundTransparency = 1
 				Background.BorderSizePixel = 0
 				Instance.new("UICorner", Background).CornerRadius = UDim.new(0, 6)
 
@@ -2699,7 +2699,7 @@ function Chloex:Window(GuiConfig)
 				Label.Size = UDim2.new(1, -20, 1, 0)
 				Label.BackgroundTransparency = 1
 				Label.Font = Enum.Font.Gotham
-				Label.Text = "── [ " .. title .. " ] ──"
+				Label.Text = tostring(title)
 				Label.TextColor3 = Color3.fromRGB(0, 208, 255)
 				Label.TextSize = 13
 				Label.TextXAlignment = Enum.TextXAlignment.Left
