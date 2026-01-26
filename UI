@@ -1927,14 +1927,14 @@ function Chloex:Window(GuiConfig)
 
 				CountItem += 1
 			end
-			function Items:AddTextbox(TextboxConfig)
+			function Items:AddToggle(TextboxConfig)
 				local TextboxConfig = TextboxConfig or {}
 				TextboxConfig.Title = TextboxConfig.Title or "Title"
 				TextboxConfig.Title2 = TextboxConfig.Title2 or ""
 				TextboxConfig.Default = TextboxConfig.Default or ""
 				TextboxConfig.Callback = TextboxConfig.Callback or function() end
 
-				local configKey = "Textbox_" .. TextboxConfig.Title
+				local configKey = "Toggle_" .. TextboxConfig.Title
 				if ConfigData[configKey] ~= nil then
 					TextboxConfig.Default = ConfigData[configKey]
 				end
