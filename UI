@@ -1828,9 +1828,34 @@ function Chloex:Window(GuiConfig)
 				MainButton.Size = ButtonConfig.SubTitle and UDim2.new(0.5, -12, 1, -10) or UDim2.new(1, -12, 1, -10)
 				MainButton.Position = UDim2.new(0, 6, 0, 5)
 				MainButton.Parent = Button
-				MainButton.AutoButtonColor = true
+				MainButton.AutoButtonColor = false
 				MainButton.ZIndex = 10
 				Instance.new("UICorner", MainButton).CornerRadius = UDim.new(0, 4)
+
+				local Flash = Instance.new("Frame")
+				Flash.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				Flash.BackgroundTransparency = 1
+				Flash.BorderSizePixel = 0
+				Flash.Size = UDim2.new(1, 0, 1, 0)
+				Flash.ZIndex = 11
+				Flash.Parent = MainButton
+				Instance.new("UICorner", Flash).CornerRadius = UDim.new(0, 4)
+
+				local function flashTap(btn)
+					btn.BackgroundTransparency = 1
+					TweenService:Create(btn, TweenInfo.new(0.06), {
+						BackgroundTransparency = 0.65,
+					}):Play()
+					task.delay(0.06, function()
+						TweenService:Create(btn, TweenInfo.new(0.14), {
+							BackgroundTransparency = 1,
+						}):Play()
+					end)
+				end
+
+				MainButton.MouseButton1Down:Connect(function()
+					flashTap(Flash)
+				end)
 
 				MainButton.MouseButton1Click:Connect(function()
 					pcall(ButtonConfig.Callback)
@@ -1848,9 +1873,16 @@ function Chloex:Window(GuiConfig)
 					SubButton.Size = UDim2.new(0.5, -8, 1, -10)
 					SubButton.Position = UDim2.new(0.5, 2, 0, 5)
 					SubButton.Parent = Button
-					SubButton.AutoButtonColor = true
+					SubButton.AutoButtonColor = false
 					SubButton.ZIndex = 10
 					Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
+
+					local Flash2 = Flash:Clone()
+					Flash2.Parent = SubButton
+
+					SubButton.MouseButton1Down:Connect(function()
+						flashTap(Flash2)
+					end)
 
 					SubButton.MouseButton1Click:Connect(function()
 						pcall(ButtonConfig.SubCallback)
@@ -2700,7 +2732,7 @@ function Chloex:Window(GuiConfig)
 				Label.BackgroundTransparency = 1
 				Label.Font = Enum.Font.Gotham
 				Label.Text = tostring(title)
-				Label.TextColor3 = Color3.fromRGB(0, 208, 255)
+				Label.TextColor3 = Color3.fromRGB(151, 151, 151)
 				Label.TextSize = 13
 				Label.TextXAlignment = Enum.TextXAlignment.Left
 
