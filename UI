@@ -749,14 +749,14 @@ function Chloex:Window(GuiConfig)
 	DecideFrame.Name = "DecideFrame"
 	DecideFrame.Parent = Main
 
-	DecideSaparator.AnchorPoint = Vector2.new(0.5, 0)
+	DecideSaparator.AnchorPoint = Vector2.new(0.5, 0.5)
 	DecideSaparator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	DecideSaparator.BackgroundTransparency = 0.85
 	DecideSaparator.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	DecideSaparator.BorderSizePixel = 0
 	DecideSaparator.Position = UDim2.new(0.2, 0, 0.55, 0)
-	DecideSaparator.Size = UDim2.new(0.57, 0, 0, 1)
-	DecideSaparator.Rotation = 90
+	DecideSaparator.Size = UDim2.new(0, 1, 0.57, 0)
+	DecideSaparator.Rotation = 0
 	DecideSaparator.Name = "DecideSaparator"
 	DecideSaparator.Parent = Main
 
