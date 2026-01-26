@@ -1801,44 +1801,6 @@ function Chloex:Window(GuiConfig)
 				CountItem = CountItem + 1
 				return PanelFunc
 			end
-			
-			local function ApplyButtonFX(btn)
-				local normalBT = btn.BackgroundTransparency
-				local hoverBT = math.max(0, normalBT - 0.08)
-				local downBT = math.max(0, normalBT - 0.15)
-
-				local normalTT = btn.TextTransparency
-				local hoverTT = math.max(0, normalTT - 0.1)
-				local downTT = math.max(0, normalTT - 0.2)
-
-				local normalSize = btn.Size
-				local downSize =
-					UDim2.new(normalSize.X.Scale, normalSize.X.Offset - 2, normalSize.Y.Scale, normalSize.Y.Offset - 2)
-
-				btn.AutoButtonColor = false
-
-				local info = TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-
-				local function tween(props)
-					TweenService:Create(btn, info, props):Play()
-				end
-
-				btn.MouseEnter:Connect(function()
-					tween({ BackgroundTransparency = hoverBT, TextTransparency = hoverTT })
-				end)
-
-				btn.MouseLeave:Connect(function()
-					tween({ BackgroundTransparency = normalBT, TextTransparency = normalTT, Size = normalSize })
-				end)
-
-				btn.MouseButton1Down:Connect(function()
-					tween({ BackgroundTransparency = downBT, TextTransparency = downTT, Size = downSize })
-				end)
-
-				btn.MouseButton1Up:Connect(function()
-					tween({ BackgroundTransparency = hoverBT, TextTransparency = hoverTT, Size = normalSize })
-				end)
-			end
 
 			function Items:AddButton(ButtonConfig)
 				ButtonConfig = ButtonConfig or {}
@@ -1862,17 +1824,29 @@ function Chloex:Window(GuiConfig)
 				MainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 				MainButton.TextTransparency = 0.3
 				MainButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				MainButton.BackgroundTransparency = 0.935
+				MainButton.BackgroundTransparency = 1
 				MainButton.Size = ButtonConfig.SubTitle and UDim2.new(0.5, -12, 1, -10) or UDim2.new(1, -12, 1, -10)
 				MainButton.Position = UDim2.new(0, 6, 0, 5)
 				MainButton.Parent = Button
+				MainButton.AutoButtonColor = true
 				MainButton.ZIndex = 10
 				Instance.new("UICorner", MainButton).CornerRadius = UDim.new(0, 4)
 
-				ApplyButtonFX(MainButton)
-
 				MainButton.MouseButton1Click:Connect(function()
+					TweenService:Create(
+						Button,
+						TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+						{ BackgroundTransparency = 0.935 }
+					):Play()
+
 					pcall(ButtonConfig.Callback)
+					task.delay(0.1, function()
+						TweenService:Create(
+							Button,
+							TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+							{ BackgroundTransparency = 1 }
+						):Play()
+					end)
 				end)
 
 				if ButtonConfig.SubTitle then
@@ -1883,14 +1857,13 @@ function Chloex:Window(GuiConfig)
 					SubButton.TextTransparency = 0.3
 					SubButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 					SubButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-					SubButton.BackgroundTransparency = 0.935
+					SubButton.BackgroundTransparency = 1
 					SubButton.Size = UDim2.new(0.5, -8, 1, -10)
 					SubButton.Position = UDim2.new(0.5, 2, 0, 5)
 					SubButton.Parent = Button
+					SubButton.AutoButtonColor = true
 					SubButton.ZIndex = 10
 					Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
-
-					ApplyButtonFX(SubButton)
 
 					SubButton.MouseButton1Click:Connect(function()
 						pcall(ButtonConfig.SubCallback)
@@ -2735,7 +2708,7 @@ function Chloex:Window(GuiConfig)
 				local Label = Instance.new("TextLabel")
 				Label.Parent = SubSection
 				Label.AnchorPoint = Vector2.new(0, 0.5)
-				Label.Position = UDim2.new(0, 10, 0.5, 0)
+				Label.Position = UDim2.new(0, 0, 0.5, 0)
 				Label.Size = UDim2.new(1, -20, 1, 0)
 				Label.BackgroundTransparency = 1
 				Label.Font = Enum.Font.Gotham
