@@ -1836,7 +1836,7 @@ function Chloex:Window(GuiConfig)
 					TweenService:Create(
 						Button,
 						TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-						{ BackgroundTransparency = 0.935 }
+						{ BackgroundTransparency = 1 }
 					):Play()
 
 					pcall(ButtonConfig.Callback)
@@ -1844,7 +1844,7 @@ function Chloex:Window(GuiConfig)
 						TweenService:Create(
 							Button,
 							TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-							{ BackgroundTransparency = 1 }
+							{ BackgroundTransparency = 0.935 }
 						):Play()
 					end)
 				end)
