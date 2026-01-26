@@ -1830,32 +1830,25 @@ function Chloex:Window(GuiConfig)
 				end)
 			end
 
-			local function HoverPulse(Button)
-				local scale = Instance.new("UIScale")
-				scale.Scale = 1
-				scale.Parent = Button
+			local function Pulse(ui)
+				local originalSize = ui.Size
+				local originalTransparency = ui.TextTransparency
 
-				local tweenIn = TweenService:Create(
-					scale,
-					TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out),
-					{ Scale = 1.05 }
-				)
+				local tween1 =
+					TweenService:Create(ui, TweenInfo.new(0.08, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						Size = originalSize - UDim2.new(0, 2, 0, 2),
+						TextTransparency = 0,
+					})
 
-				local tweenOut = TweenService:Create(
-					scale,
-					TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out),
-					{ Scale = 1 }
-				)
+				local tween2 =
+					TweenService:Create(ui, TweenInfo.new(0.08, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						Size = originalSize,
+						TextTransparency = originalTransparency,
+					})
 
-				Button.MouseEnter:Connect(function()
-					tweenOut:Cancel()
-					tweenIn:Play()
-				end)
-
-				Button.MouseLeave:Connect(function()
-					tweenIn:Cancel()
-					tweenOut:Play()
-				end)
+				tween1:Play()
+				tween1.Completed:Wait()
+				tween2:Play()
 			end
 
 			function Items:AddButton(ButtonConfig)
@@ -1888,9 +1881,8 @@ function Chloex:Window(GuiConfig)
 				MainButton.ZIndex = 10
 				Instance.new("UICorner", MainButton).CornerRadius = UDim.new(0, 4)
 
-				HoverPulse(MainButton)
-
 				MainButton.MouseButton1Click:Connect(function()
+					Pulse(MainButton)
 					pcall(ButtonConfig.Callback)
 				end)
 
@@ -1910,9 +1902,8 @@ function Chloex:Window(GuiConfig)
 					SubButton.ZIndex = 10
 					Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
 
-					HoverPulse(SubButton)
-
 					SubButton.MouseButton1Click:Connect(function()
+						Pulse(SubButton)
 						pcall(ButtonConfig.SubCallback)
 					end)
 				end
