@@ -1943,87 +1943,71 @@ function Chloex:Window(GuiConfig)
 	local Toggle = Instance.new("Frame")
 	local ToggleTitle = Instance.new("TextLabel")
 	local ToggleButton = Instance.new("TextButton")
-	local FeatureFrame2 = Instance.new("Frame")
-	local UIStroke8 = Instance.new("UIStroke")
-	local ToggleCheckmark = Instance.new("TextLabel")
+	local Box = Instance.new("Frame")
+	local Stroke = Instance.new("UIStroke")
+	local Check = Instance.new("ImageLabel")
 
-	Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Toggle.Size = UDim2.new(1, 0, 0, 40)
 	Toggle.BackgroundTransparency = 0.935
 	Toggle.BorderSizePixel = 0
 	Toggle.LayoutOrder = CountItem
-	Toggle.Name = "Toggle"
 	Toggle.Parent = SectionAdd
-	Toggle.Size = UDim2.new(1, 0, 0, 40)
 
-	ToggleTitle.Font = Enum.Font.Gotham
 	ToggleTitle.Text = tostring(ToggleConfig.Title)
+	ToggleTitle.Font = Enum.Font.Gotham
 	ToggleTitle.TextSize = 13
-	ToggleTitle.TextColor3 = Color3.fromRGB(231, 231, 231)
-	ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
-	ToggleTitle.TextYAlignment = Enum.TextYAlignment.Center
+	ToggleTitle.TextColor3 = Color3.fromRGB(231,231,231)
 	ToggleTitle.BackgroundTransparency = 1
-	ToggleTitle.Position = UDim2.new(0, 10, 0, 0)
+	ToggleTitle.TextXAlignment = Left
 	ToggleTitle.Size = UDim2.new(1, -60, 1, 0)
-	ToggleTitle.Name = "ToggleTitle"
+	ToggleTitle.Position = UDim2.new(0, 10, 0, 0)
 	ToggleTitle.Parent = Toggle
 
-	ToggleButton.Font = Enum.Font.SourceSans
 	ToggleButton.Text = ""
 	ToggleButton.BackgroundTransparency = 1
 	ToggleButton.Size = UDim2.new(1, 0, 1, 0)
-	ToggleButton.Name = "ToggleButton"
 	ToggleButton.Parent = Toggle
 
-	FeatureFrame2.AnchorPoint = Vector2.new(1, 0.5)
-	FeatureFrame2.BorderSizePixel = 0
-	FeatureFrame2.Position = UDim2.new(1, -12, 0.5, 0)
-	FeatureFrame2.Size = UDim2.new(0, 22, 0, 22)
-	FeatureFrame2.Name = "FeatureFrame"
-	FeatureFrame2.Parent = Toggle
+	Box.Size = UDim2.new(0, 22, 0, 22)
+	Box.Position = UDim2.new(1, -12, 0.5, 0)
+	Box.AnchorPoint = Vector2.new(1, 0.5)
+	Box.BackgroundTransparency = 1
+	Box.Parent = Toggle
 
-	UIStroke8.Color = Color3.fromRGB(255, 255, 255)
-	UIStroke8.Thickness = 2
-	UIStroke8.Transparency = 0.75
-	UIStroke8.Parent = FeatureFrame2
+	Stroke.Thickness = 2
+	Stroke.Transparency = 0.75
+	Stroke.Color = Color3.fromRGB(255,255,255)
+	Stroke.Parent = Box
 
-	ToggleCheckmark.Text = "✓"
-	ToggleCheckmark.Font = Enum.Font.GothamBold
-	ToggleCheckmark.TextSize = 16
-	ToggleCheckmark.TextColor3 = Color3.fromRGB(0, 0, 0)
-	ToggleCheckmark.BackgroundTransparency = 1
-	ToggleCheckmark.Size = UDim2.new(1, 0, 1, 0)
-	ToggleCheckmark.Position = UDim2.new(0, 0, 0, -1)
-	ToggleCheckmark.TextXAlignment = Enum.TextXAlignment.Center
-	ToggleCheckmark.TextYAlignment = Enum.TextYAlignment.Center
-	ToggleCheckmark.Parent = FeatureFrame2
+	Check.Image = "rbxassetid://7173527603"
+	Check.Size = UDim2.new(1, -6, 1, -6)
+	Check.Position = UDim2.new(0, 3, 0, 3)
+	Check.BackgroundTransparency = 1
+	Check.Visible = false
+	Check.Parent = Box
 
 	function ToggleFunc:Set(Value)
-		ToggleFunc.Value = (Value == true)
-
-		if typeof(ToggleConfig.Callback) == "function" then
-			local ok, err = pcall(function()
-				ToggleConfig.Callback(ToggleFunc.Value)
-			end)
-			if not ok then
-				warn("Toggle Callback error:", err)
-			end
-		end
-
+		ToggleFunc.Value = Value == true
 		ConfigData[configKey] = ToggleFunc.Value
 
 		if ToggleFunc.Value then
-			ToggleCheckmark.Visible = true
-			FeatureFrame2.BackgroundColor3 = Color3.fromRGB(214, 82, 82)
-			FeatureFrame2.BackgroundTransparency = 0
-			UIStroke8.Transparency = 1
-			TweenService:Create(ToggleTitle, TweenInfo.new(0.2), { TextColor3 = GuiConfig.Color }):Play()
+			Check.Visible = true
+			Box.BackgroundTransparency = 0
+			Box.BackgroundColor3 = GuiConfig.Color
+			Stroke.Transparency = 1
+			TweenService:Create(ToggleTitle, TweenInfo.new(0.2), {
+				TextColor3 = GuiConfig.Color
+			}):Play()
 		else
-			ToggleCheckmark.Visible = false
-			FeatureFrame2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			FeatureFrame2.BackgroundTransparency = 1
-			UIStroke8.Transparency = 0.75
-			TweenService:Create(ToggleTitle, TweenInfo.new(0.2), { TextColor3 = Color3.fromRGB(231, 231, 231) }):Play()
+			Check.Visible = false
+			Box.BackgroundTransparency = 1
+			Stroke.Transparency = 0.75
+			TweenService:Create(ToggleTitle, TweenInfo.new(0.2), {
+				TextColor3 = Color3.fromRGB(231,231,231)
+			}):Play()
 		end
+
+		pcall(ToggleConfig.Callback, ToggleFunc.Value)
 	end
 
 	ToggleButton.Activated:Connect(function()
@@ -2031,7 +2015,7 @@ function Chloex:Window(GuiConfig)
 	end)
 
 	ToggleFunc:Set(ToggleFunc.Value)
-	CountItem = CountItem + 1
+	CountItem += 1
 	Elements[configKey] = ToggleFunc
 	return ToggleFunc
 end
