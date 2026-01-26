@@ -1927,11 +1927,10 @@ function Chloex:Window(GuiConfig)
 
 				CountItem += 1
 			end
+			
 			function Items:AddToggle(ToggleConfig)
 				local ToggleConfig = ToggleConfig or {}
 				ToggleConfig.Title = ToggleConfig.Title or "Title"
-				ToggleConfig.Title2 = ToggleConfig.Title2 or ""
-				ToggleConfig.Content = ToggleConfig.Content or ""
 				ToggleConfig.Default = ToggleConfig.Default or false
 				ToggleConfig.Callback = ToggleConfig.Callback or function() end
 
@@ -1945,12 +1944,10 @@ function Chloex:Window(GuiConfig)
 				local Toggle = Instance.new("Frame")
 				local UICorner20 = Instance.new("UICorner")
 				local ToggleTitle = Instance.new("TextLabel")
-				local ToggleContent = Instance.new("TextLabel")
 				local ToggleButton = Instance.new("TextButton")
 				local FeatureFrame2 = Instance.new("Frame")
 				local UICorner22 = Instance.new("UICorner")
-				local UIStroke8 = Instance.new("UIStroke")
-				local ToggleCircle = Instance.new("Frame")
+				local ToggleBox = Instance.new("Frame")
 				local UICorner23 = Instance.new("UICorner")
 
 				Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1975,62 +1972,23 @@ function Chloex:Window(GuiConfig)
 				ToggleTitle.Name = "ToggleTitle"
 				ToggleTitle.Parent = Toggle
 
-				local ToggleTitle2 = Instance.new("TextLabel")
-				ToggleTitle2.Font = Enum.Font.Gotham
-				ToggleTitle2.Text = ToggleConfig.Title2
-				ToggleTitle2.TextSize = 12
-				ToggleTitle2.TextColor3 = Color3.fromRGB(231, 231, 231)
-				ToggleTitle2.TextXAlignment = Enum.TextXAlignment.Left
-				ToggleTitle2.TextYAlignment = Enum.TextYAlignment.Top
-				ToggleTitle2.BackgroundTransparency = 1
-				ToggleTitle2.Position = UDim2.new(0, 10, 0, 23)
-				ToggleTitle2.Size = UDim2.new(1, -100, 0, 12)
-				ToggleTitle2.Name = "ToggleTitle2"
-				ToggleTitle2.Parent = Toggle
+				ToggleBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				ToggleBox.BorderSizePixel = 1
+				ToggleBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+				ToggleBox.Position = UDim2.new(0, 10, 0, 30)
+				ToggleBox.Size = UDim2.new(0, 16, 0, 16)
+				ToggleBox.Name = "ToggleBox"
+				ToggleBox.Parent = Toggle
 
-				ToggleContent.Font = Enum.Font.Gotham
-				ToggleContent.Text = ToggleConfig.Content
-				ToggleContent.TextColor3 = Color3.fromRGB(255, 255, 255)
-				ToggleContent.TextSize = 12
-				ToggleContent.TextTransparency = 0.6
-				ToggleContent.TextXAlignment = Enum.TextXAlignment.Left
-				ToggleContent.TextYAlignment = Enum.TextYAlignment.Bottom
-				ToggleContent.BackgroundTransparency = 1
-				ToggleContent.Size = UDim2.new(1, -100, 0, 12)
-				ToggleContent.Name = "ToggleContent"
-				ToggleContent.Parent = Toggle
+				UICorner23.CornerRadius = UDim.new(0, 4)
+				UICorner23.Parent = ToggleBox
 
-				if ToggleConfig.Title2 ~= "" then
-					Toggle.Size = UDim2.new(1, 0, 0, 57)
-					ToggleContent.Position = UDim2.new(0, 10, 0, 36)
-					ToggleTitle2.Visible = true
-				else
-					Toggle.Size = UDim2.new(1, 0, 0, 46)
-					ToggleContent.Position = UDim2.new(0, 10, 0, 23)
-					ToggleTitle2.Visible = false
-				end
-
-				ToggleContent.Size =
-					UDim2.new(1, -100, 0, 12 + (12 * (ToggleContent.TextBounds.X // ToggleContent.AbsoluteSize.X)))
-				ToggleContent.TextWrapped = true
-				if ToggleConfig.Title2 ~= "" then
-					Toggle.Size = UDim2.new(1, 0, 0, ToggleContent.AbsoluteSize.Y + 47)
-				else
-					Toggle.Size = UDim2.new(1, 0, 0, ToggleContent.AbsoluteSize.Y + 33)
-				end
-
-				ToggleContent:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
-					ToggleContent.TextWrapped = false
-					ToggleContent.Size =
-						UDim2.new(1, -100, 0, 12 + (12 * (ToggleContent.TextBounds.X // ToggleContent.AbsoluteSize.X)))
-					if ToggleConfig.Title2 ~= "" then
-						Toggle.Size = UDim2.new(1, 0, 0, ToggleContent.AbsoluteSize.Y + 47)
-					else
-						Toggle.Size = UDim2.new(1, 0, 0, ToggleContent.AbsoluteSize.Y + 33)
-					end
-					ToggleContent.TextWrapped = true
-					UpdateSizeSection()
-				end)
+				local CheckMark = Instance.new("Frame")
+				CheckMark.BackgroundColor3 = Color3.fromRGB(0, 128, 0)
+				CheckMark.Size = UDim2.new(1, 0, 1, 0)
+				CheckMark.Visible = ToggleConfig.Default
+				CheckMark.Name = "CheckMark"
+				CheckMark.Parent = ToggleBox
 
 				ToggleButton.Font = Enum.Font.SourceSans
 				ToggleButton.Text = ""
@@ -2054,15 +2012,6 @@ function Chloex:Window(GuiConfig)
 				UIStroke8.Transparency = 0.9
 				UIStroke8.Parent = FeatureFrame2
 
-				ToggleCircle.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
-				ToggleCircle.BorderSizePixel = 0
-				ToggleCircle.Size = UDim2.new(0, 14, 0, 14)
-				ToggleCircle.Name = "ToggleCircle"
-				ToggleCircle.Parent = FeatureFrame2
-
-				UICorner23.CornerRadius = UDim.new(0, 15)
-				UICorner23.Parent = ToggleCircle
-
 				ToggleButton.Activated:Connect(function()
 					ToggleFunc.Value = not ToggleFunc.Value
 					ToggleFunc:Set(ToggleFunc.Value)
@@ -2078,35 +2027,13 @@ function Chloex:Window(GuiConfig)
 						end
 					end
 					ConfigData[configKey] = Value
-					-- Auto-save disabled - use manual save
 					if Value then
-						TweenService:Create(ToggleTitle, TweenInfo.new(0.2), { TextColor3 = GuiConfig.Color }):Play()
-						TweenService:Create(ToggleCircle, TweenInfo.new(0.2), { Position = UDim2.new(0, 15, 0, 0) })
+						TweenService:Create(CheckMark, TweenInfo.new(0.2), { BackgroundColor3 = GuiConfig.Color })
 							:Play()
-						TweenService
-							:Create(UIStroke8, TweenInfo.new(0.2), { Color = GuiConfig.Color, Transparency = 0 })
-							:Play()
-						TweenService:Create(
-							FeatureFrame2,
-							TweenInfo.new(0.2),
-							{ BackgroundColor3 = GuiConfig.Color, BackgroundTransparency = 0 }
-						):Play()
 					else
 						TweenService
-							:Create(ToggleTitle, TweenInfo.new(0.2), { TextColor3 = Color3.fromRGB(230, 230, 230) })
+							:Create(CheckMark, TweenInfo.new(0.2), { BackgroundColor3 = Color3.fromRGB(255, 255, 255) })
 							:Play()
-						TweenService:Create(ToggleCircle, TweenInfo.new(0.2), { Position = UDim2.new(0, 0, 0, 0) })
-							:Play()
-						TweenService:Create(
-							UIStroke8,
-							TweenInfo.new(0.2),
-							{ Color = Color3.fromRGB(255, 255, 255), Transparency = 0.9 }
-						):Play()
-						TweenService:Create(
-							FeatureFrame2,
-							TweenInfo.new(0.2),
-							{ BackgroundColor3 = Color3.fromRGB(255, 255, 255), BackgroundTransparency = 0.92 }
-						):Play()
 					end
 				end
 
