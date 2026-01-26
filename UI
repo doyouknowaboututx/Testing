@@ -1854,54 +1854,68 @@ function Chloex:Window(GuiConfig)
 				up:Play()
 			end
 
-			local function ShowConfirmOverlay(onConfirm)
-				local PlayerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+			local function ShowConfirmPopup(parentGui, onConfirm)
+				local PopupLayer = Instance.new("Frame")
+				PopupLayer.BackgroundTransparency = 1
+				PopupLayer.Size = UDim2.fromScale(1, 1)
+				PopupLayer.ZIndex = 9999
+				PopupLayer.Parent = parentGui
 
-				local Gui = Instance.new("ScreenGui")
-				Gui.ResetOnSpawn = false
-				Gui.Parent = PlayerGui
-
-				local Overlay = Instance.new("Frame")
-				Overlay.Size = UDim2.fromScale(1, 1)
-				Overlay.BackgroundColor3 = Color3.new(0, 0, 0)
-				Overlay.BackgroundTransparency = 0.35
-				Overlay.Parent = Gui
+				local Catch = Instance.new("TextButton")
+				Catch.Text = ""
+				Catch.AutoButtonColor = false
+				Catch.BackgroundTransparency = 1
+				Catch.Size = UDim2.fromScale(1, 1)
+				Catch.ZIndex = 9999
+				Catch.Parent = PopupLayer
 
 				local Box = Instance.new("Frame")
-				Box.Size = UDim2.new(0, 260, 0, 120)
-				Box.Position = UDim2.fromScale(0.5, 0.5)
+				Box.Size = UDim2.new(0, 220, 0, 70)
 				Box.AnchorPoint = Vector2.new(0.5, 0.5)
+				Box.Position = UDim2.fromScale(0.5, 0.5)
 				Box.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-				Box.Parent = Overlay
+				Box.ZIndex = 10000
+				Box.Parent = PopupLayer
 				Instance.new("UICorner", Box).CornerRadius = UDim.new(0, 6)
+
+				local UIStroke = Instance.new("UIStroke")
+				UIStroke.Thickness = 1
+				UIStroke.Transparency = 0.4
+				UIStroke.Color = Color3.fromRGB(255, 255, 255)
+				UIStroke.Parent = Box
 
 				local Confirm = Instance.new("TextButton")
 				Confirm.Text = "Confirm"
 				Confirm.Font = Enum.Font.Gotham
 				Confirm.TextSize = 12
-				Confirm.Size = UDim2.new(0.5, -6, 0, 32)
-				Confirm.Position = UDim2.new(0, 6, 1, -38)
 				Confirm.BackgroundTransparency = 1
-				Confirm.TextColor3 = Color3.new(1, 1, 1)
+				Confirm.TextColor3 = Color3.fromRGB(255, 255, 255)
+				Confirm.Size = UDim2.new(0.5, -6, 1, -12)
+				Confirm.Position = UDim2.new(0, 6, 0, 6)
+				Confirm.ZIndex = 10001
 				Confirm.Parent = Box
 
 				local Cancel = Instance.new("TextButton")
 				Cancel.Text = "Cancel"
 				Cancel.Font = Enum.Font.Gotham
 				Cancel.TextSize = 12
-				Cancel.Size = UDim2.new(0.5, -6, 0, 32)
-				Cancel.Position = UDim2.new(0.5, 0, 1, -38)
 				Cancel.BackgroundTransparency = 1
-				Cancel.TextColor3 = Color3.new(1, 1, 1)
+				Cancel.TextColor3 = Color3.fromRGB(255, 255, 255)
+				Cancel.Size = UDim2.new(0.5, -6, 1, -12)
+				Cancel.Position = UDim2.new(0.5, 0, 0, 6)
+				Cancel.ZIndex = 10001
 				Cancel.Parent = Box
+
+				local function close()
+					PopupLayer:Destroy()
+				end
+
+				Catch.MouseButton1Click:Connect(close)
+				Cancel.MouseButton1Click:Connect(close)
 
 				Confirm.MouseButton1Click:Connect(function()
 					pcall(onConfirm)
-					Gui:Destroy()
-				end)
-
-				Cancel.MouseButton1Click:Connect(function()
-					Gui:Destroy()
+					close()
 				end)
 			end
 
@@ -1949,7 +1963,12 @@ function Chloex:Window(GuiConfig)
 
 				MainButton.MouseButton1Click:Connect(function()
 					if ButtonConfig.Content == true then
-						ShowConfirmOverlay(ButtonConfig.Callback)
+						local screenGui = MainButton:FindFirstAncestorOfClass("ScreenGui")
+						if screenGui then
+							ShowConfirmPopup(screenGui, ButtonConfig.Callback)
+						else
+							pcall(ButtonConfig.Callback)
+						end
 					else
 						pcall(ButtonConfig.Callback)
 					end
