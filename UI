@@ -2108,7 +2108,7 @@ function Chloex:Window(GuiConfig)
 				SliderTitle.BackgroundTransparency = 0.9990000128746033
 				SliderTitle.BorderColor3 = Color3.fromRGB(0, 0, 0)
 				SliderTitle.BorderSizePixel = 0
-				SliderTitle.Position = UDim2.new(0, 10, 0, 10)
+				SliderTitle.Position = UDim2.new(0, 10, 0, 15)
 				SliderTitle.Size = UDim2.new(1, -180, 0, 13)
 				SliderTitle.Name = "SliderTitle"
 				SliderTitle.Parent = Slider
