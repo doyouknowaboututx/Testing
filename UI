@@ -1819,69 +1819,75 @@ function Chloex:Window(GuiConfig)
 
 				local MainButton = Instance.new("TextButton")
 				MainButton.Font = Enum.Font.Gotham
-				MainButton.Text = tostring(ButtonConfig.Title)
+				MainButton.Text = ButtonConfig.Title
 				MainButton.TextSize = 12
 				MainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 				MainButton.TextTransparency = 0.3
 				MainButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				MainButton.BackgroundTransparency = 1
+				MainButton.BackgroundTransparency = 0.935
 				MainButton.Size = ButtonConfig.SubTitle and UDim2.new(0.5, -12, 1, -10) or UDim2.new(1, -12, 1, -10)
 				MainButton.Position = UDim2.new(0, 6, 0, 5)
 				MainButton.Parent = Button
-				MainButton.AutoButtonColor = true
+				MainButton.AutoButtonColor = false
+				MainButton.ClipsDescendants = true
 				MainButton.ZIndex = 10
 				Instance.new("UICorner", MainButton).CornerRadius = UDim.new(0, 4)
 
-				MainButton.MouseButton1Click:Connect(function()
-					TweenService:Create(
-						Button,
-						TweenInfo.new(0.10, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-						{ BackgroundTransparency = 0.95 }
-					):Play()
+				local Icon = Instance.new("ImageLabel")
+				Icon.BackgroundTransparency = 1
+				Icon.Size = UDim2.new(0, 20, 0, 20)
+				Icon.AnchorPoint = Vector2.new(0, 0.5)
+				Icon.Position = UDim2.new(0, 0, 0.5, 0)
+				Icon.ZIndex = 12
+				Icon.Parent = MainButton
 
-					pcall(ButtonConfig.Callback)
-					task.delay(0.01, function()
-						TweenService:Create(
-							Button,
-							TweenInfo.new(0.10, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-							{ BackgroundTransparency = 0.935 }
-						):Play()
+				local function buttonFlash(btn, icon)
+					if icon then
+					end
+
+					TweenService:Create(btn, TweenInfo.new(0.08, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						BackgroundTransparency = 0.85,
+					}):Play()
+
+					task.delay(0.15, function()
+						TweenService
+							:Create(btn, TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+								BackgroundTransparency = 1,
+							})
+							:Play()
 					end)
+				end
+
+				MainButton.MouseButton1Down:Connect(function()
+					buttonFlash(MainButton, Icon)
 				end)
 
+				MainButton.MouseButton1Click:Connect(ButtonConfig.Callback)
+
 				if ButtonConfig.SubTitle then
+					Icon.Visible = false
+
 					local SubButton = Instance.new("TextButton")
 					SubButton.Font = Enum.Font.Gotham
-					SubButton.Text = tostring(ButtonConfig.SubTitle)
+					SubButton.Text = ButtonConfig.SubTitle
 					SubButton.TextSize = 12
 					SubButton.TextTransparency = 0.3
 					SubButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 					SubButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-					SubButton.BackgroundTransparency = 1
+					SubButton.BackgroundTransparency = 0.935
 					SubButton.Size = UDim2.new(0.5, -8, 1, -10)
 					SubButton.Position = UDim2.new(0.5, 2, 0, 5)
 					SubButton.Parent = Button
-					SubButton.AutoButtonColor = true
+					SubButton.AutoButtonColor = false
+					SubButton.ClipsDescendants = true
 					SubButton.ZIndex = 10
 					Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
 
-					SubButton.MouseButton1Click:Connect(function()
-						TweenService:Create(
-							Button,
-							TweenInfo.new(0.10, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-							{ BackgroundTransparency = 0.95 }
-						):Play()
-
-						pcall(ButtonConfig.SubCallback)
-
-						task.delay(0.01, function()
-							TweenService:Create(
-								Button,
-								TweenInfo.new(0.10, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-								{ BackgroundTransparency = 0.935 }
-							):Play()
-						end)
+					SubButton.MouseButton1Down:Connect(function()
+						buttonFlash(SubButton)
 					end)
+
+					SubButton.MouseButton1Click:Connect(ButtonConfig.SubCallback)
 				end
 
 				CountItem += 1
@@ -2722,12 +2728,12 @@ function Chloex:Window(GuiConfig)
 				local Label = Instance.new("TextLabel")
 				Label.Parent = SubSection
 				Label.AnchorPoint = Vector2.new(0, 0.5)
-				Label.Position = UDim2.new(0, 0, 0.5, 0)
+				Label.Position = UDim2.new(0, 10, 0.5, 0)
 				Label.Size = UDim2.new(1, -20, 1, 0)
 				Label.BackgroundTransparency = 1
 				Label.Font = Enum.Font.Gotham
 				Label.Text = tostring(title)
-				Label.TextColor3 = Color3.fromRGB(151, 151, 151)
+				Label.TextColor3 = Color3.fromRGB(0, 208, 255z)
 				Label.TextSize = 13
 				Label.TextXAlignment = Enum.TextXAlignment.Left
 
