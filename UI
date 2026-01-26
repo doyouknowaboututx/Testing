@@ -764,7 +764,7 @@ function Chloex:Window(GuiConfig)
 	Layers.BackgroundTransparency = 0.9990000128746033
 	Layers.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Layers.BorderSizePixel = 0
-	Layers.Position = UDim2.new(0, GuiConfig["Tab Width"] + 18, 0, 50)
+	Layers.Position = UDim2.new(0, GuiConfig["Tab Width"] + 8, 0, 50)
 	Layers.Size = UDim2.new(1, -(GuiConfig["Tab Width"] + 9 + 18), 1, -59)
 	Layers.Name = "Layers"
 	Layers.Parent = Main
