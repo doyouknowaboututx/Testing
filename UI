@@ -1830,6 +1830,34 @@ function Chloex:Window(GuiConfig)
 				end)
 			end
 
+			local function HoverPulse(Button)
+				local scale = Instance.new("UIScale")
+				scale.Scale = 1
+				scale.Parent = Button
+
+				local tweenIn = TweenService:Create(
+					scale,
+					TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out),
+					{ Scale = 1.05 }
+				)
+
+				local tweenOut = TweenService:Create(
+					scale,
+					TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out),
+					{ Scale = 1 }
+				)
+
+				Button.MouseEnter:Connect(function()
+					tweenOut:Cancel()
+					tweenIn:Play()
+				end)
+
+				Button.MouseLeave:Connect(function()
+					tweenIn:Cancel()
+					tweenOut:Play()
+				end)
+			end
+
 			function Items:AddButton(ButtonConfig)
 				ButtonConfig = ButtonConfig or {}
 				ButtonConfig.Title = ButtonConfig.Title or "Confirm"
@@ -1860,6 +1888,8 @@ function Chloex:Window(GuiConfig)
 				MainButton.ZIndex = 10
 				Instance.new("UICorner", MainButton).CornerRadius = UDim.new(0, 4)
 
+				HoverPulse(MainButton)
+
 				MainButton.MouseButton1Click:Connect(function()
 					pcall(ButtonConfig.Callback)
 				end)
@@ -1879,6 +1909,8 @@ function Chloex:Window(GuiConfig)
 					SubButton.AutoButtonColor = true
 					SubButton.ZIndex = 10
 					Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
+
+					HoverPulse(SubButton)
 
 					SubButton.MouseButton1Click:Connect(function()
 						pcall(ButtonConfig.SubCallback)
@@ -2728,7 +2760,7 @@ function Chloex:Window(GuiConfig)
 				Label.BackgroundTransparency = 1
 				Label.Font = Enum.Font.Gotham
 				Label.Text = tostring(title)
-				Label.TextColor3 = Color3.fromRGB(0, 208, 255z)
+				Label.TextColor3 = Color3.fromRGB(0, 208, 255)
 				Label.TextSize = 13
 				Label.TextXAlignment = Enum.TextXAlignment.Left
 
