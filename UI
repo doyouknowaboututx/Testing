@@ -1802,6 +1802,34 @@ function Chloex:Window(GuiConfig)
 				return PanelFunc
 			end
 
+			local function HoverPulse(Button)
+				local scale = Instance.new("UIScale")
+				scale.Scale = 1
+				scale.Parent = Button
+
+				local tweenIn = TweenService:Create(
+					scale,
+					TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out),
+					{ Scale = 1.05 }
+				)
+
+				local tweenOut = TweenService:Create(
+					scale,
+					TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out),
+					{ Scale = 1 }
+				)
+
+				Button.MouseEnter:Connect(function()
+					tweenOut:Cancel()
+					tweenIn:Play()
+				end)
+
+				Button.MouseLeave:Connect(function()
+					tweenIn:Cancel()
+					tweenOut:Play()
+				end)
+			end
+
 			function Items:AddButton(ButtonConfig)
 				ButtonConfig = ButtonConfig or {}
 				ButtonConfig.Title = ButtonConfig.Title or "Confirm"
@@ -1832,22 +1860,10 @@ function Chloex:Window(GuiConfig)
 				MainButton.ZIndex = 10
 				Instance.new("UICorner", MainButton).CornerRadius = UDim.new(0, 4)
 
-				local function mainButtonClickEffect()
-					local tweenInfo = TweenInfo.new(0.05, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 2, true)
-					local goal = {Position = MainButton.Position + UDim2.new(0.03, 0, 0, 0)}
-					local tween = TweenService:Create(MainButton, tweenInfo, goal)
-					tween:Play()
-
-					tween.Completed:Connect(function()
-						local resetGoal = {Position = MainButton.Position}
-						local resetTween = TweenService:Create(MainButton, tweenInfo, resetGoal)
-						resetTween:Play()
-					end)
-				end
+				HoverPulse(MainButton)
 
 				MainButton.MouseButton1Click:Connect(function()
 					pcall(ButtonConfig.Callback)
-					mainButtonClickEffect()
 				end)
 
 				if ButtonConfig.SubTitle then
@@ -1866,22 +1882,10 @@ function Chloex:Window(GuiConfig)
 					SubButton.ZIndex = 10
 					Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
 
-					local function subButtonClickEffect()
-						local tweenInfo = TweenInfo.new(0.05, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 2, true)
-						local goal = {Position = SubButton.Position + UDim2.new(-0.03, 0, 0, 0)}
-						local tween = TweenService:Create(SubButton, tweenInfo, goal)
-						tween:Play()
-
-						tween.Completed:Connect(function()
-							local resetGoal = {Position = SubButton.Position}
-							local resetTween = TweenService:Create(SubButton, tweenInfo, resetGoal)
-							resetTween:Play()
-						end)
-					end
+					HoverPulse(SubButton)
 
 					SubButton.MouseButton1Click:Connect(function()
 						pcall(ButtonConfig.SubCallback)
-						subButtonClickEffect()
 					end)
 				end
 
