@@ -1927,75 +1927,92 @@ function Chloex:Window(GuiConfig)
 
 				CountItem += 1
 			end
-			
-			function Items:AddToggle(ToggleConfig)
-				local ToggleConfig = ToggleConfig or {}
-				ToggleConfig.Title = ToggleConfig.Title or "Title"
-				ToggleConfig.Default = ToggleConfig.Default or false
-				ToggleConfig.Callback = ToggleConfig.Callback or function() end
+			function Items:AddTextbox(TextboxConfig)
+				local TextboxConfig = TextboxConfig or {}
+				TextboxConfig.Title = TextboxConfig.Title or "Title"
+				TextboxConfig.Title2 = TextboxConfig.Title2 or ""
+				TextboxConfig.Default = TextboxConfig.Default or ""
+				TextboxConfig.Callback = TextboxConfig.Callback or function() end
 
-				local configKey = "Toggle_" .. ToggleConfig.Title
+				local configKey = "Textbox_" .. TextboxConfig.Title
 				if ConfigData[configKey] ~= nil then
-					ToggleConfig.Default = ConfigData[configKey]
+					TextboxConfig.Default = ConfigData[configKey]
 				end
 
-				local ToggleFunc = { Value = ToggleConfig.Default }
+				local TextboxFunc = { Value = TextboxConfig.Default }
 
-				local Toggle = Instance.new("Frame")
+				local Textbox = Instance.new("Frame")
 				local UICorner20 = Instance.new("UICorner")
-				local ToggleTitle = Instance.new("TextLabel")
-				local ToggleButton = Instance.new("TextButton")
+				local TextboxTitle = Instance.new("TextLabel")
+				local TextboxButton = Instance.new("TextButton")
 				local FeatureFrame2 = Instance.new("Frame")
 				local UICorner22 = Instance.new("UICorner")
-				local ToggleBox = Instance.new("Frame")
+				local UIStroke8 = Instance.new("UIStroke")
+				local ToggleCircle = Instance.new("Frame")
 				local UICorner23 = Instance.new("UICorner")
+				local TextInput = Instance.new("TextBox")
 
-				Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				Toggle.BackgroundTransparency = 0.935
-				Toggle.BorderSizePixel = 0
-				Toggle.LayoutOrder = CountItem
-				Toggle.Name = "Toggle"
-				Toggle.Parent = SectionAdd
+				Textbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				Textbox.BackgroundTransparency = 0.935
+				Textbox.BorderSizePixel = 0
+				Textbox.LayoutOrder = CountItem
+				Textbox.Name = "Textbox"
+				Textbox.Parent = SectionAdd
 
 				UICorner20.CornerRadius = UDim.new(0, 4)
-				UICorner20.Parent = Toggle
+				UICorner20.Parent = Textbox
 
-				ToggleTitle.Font = Enum.Font.Gotham
-				ToggleTitle.Text = ToggleConfig.Title
-				ToggleTitle.TextSize = 13
-				ToggleTitle.TextColor3 = Color3.fromRGB(231, 231, 231)
-				ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
-				ToggleTitle.TextYAlignment = Enum.TextYAlignment.Top
-				ToggleTitle.BackgroundTransparency = 1
-				ToggleTitle.Position = UDim2.new(0, 10, 0, 10)
-				ToggleTitle.Size = UDim2.new(1, -100, 0, 13)
-				ToggleTitle.Name = "ToggleTitle"
-				ToggleTitle.Parent = Toggle
+				TextboxTitle.Font = Enum.Font.Gotham
+				TextboxTitle.Text = TextboxConfig.Title
+				TextboxTitle.TextSize = 13
+				TextboxTitle.TextColor3 = Color3.fromRGB(231, 231, 231)
+				TextboxTitle.TextXAlignment = Enum.TextXAlignment.Left
+				TextboxTitle.TextYAlignment = Enum.TextYAlignment.Top
+				TextboxTitle.BackgroundTransparency = 1
+				TextboxTitle.Position = UDim2.new(0, 10, 0, 10)
+				TextboxTitle.Size = UDim2.new(1, -100, 0, 13)
+				TextboxTitle.Name = "TextboxTitle"
+				TextboxTitle.Parent = Textbox
 
-				ToggleBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				ToggleBox.BorderSizePixel = 1
-				ToggleBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				ToggleBox.Position = UDim2.new(0, 10, 0, 30)
-				ToggleBox.Size = UDim2.new(0, 16, 0, 16)
-				ToggleBox.Name = "ToggleBox"
-				ToggleBox.Parent = Toggle
+				local TextboxTitle2 = Instance.new("TextLabel")
+				TextboxTitle2.Font = Enum.Font.Gotham
+				TextboxTitle2.Text = TextboxConfig.Title2
+				TextboxTitle2.TextSize = 12
+				TextboxTitle2.TextColor3 = Color3.fromRGB(231, 231, 231)
+				TextboxTitle2.TextXAlignment = Enum.TextXAlignment.Left
+				TextboxTitle2.TextYAlignment = Enum.TextYAlignment.Top
+				TextboxTitle2.BackgroundTransparency = 1
+				TextboxTitle2.Position = UDim2.new(0, 10, 0, 23)
+				TextboxTitle2.Size = UDim2.new(1, -100, 0, 12)
+				TextboxTitle2.Name = "TextboxTitle2"
+				TextboxTitle2.Parent = Textbox
 
-				UICorner23.CornerRadius = UDim.new(0, 4)
-				UICorner23.Parent = ToggleBox
+				TextInput.Font = Enum.Font.Gotham
+				TextInput.Text = TextboxConfig.Default
+				TextInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+				TextInput.TextSize = 12
+				TextInput.BackgroundTransparency = 1
+				TextInput.Size = UDim2.new(1, -100, 0, 20)
+				TextInput.Name = "TextInput"
+				TextInput.Parent = Textbox
+				TextInput.TextXAlignment = Enum.TextXAlignment.Left
+				TextInput.TextYAlignment = Enum.TextYAlignment.Center
+				TextInput.PlaceholderText = "Enter text..."
 
-				local CheckMark = Instance.new("Frame")
-				CheckMark.BackgroundColor3 = Color3.fromRGB(0, 128, 0)
-				CheckMark.Size = UDim2.new(1, 0, 1, 0)
-				CheckMark.Visible = ToggleConfig.Default
-				CheckMark.Name = "CheckMark"
-				CheckMark.Parent = ToggleBox
+				if TextboxConfig.Title2 ~= "" then
+					Textbox.Size = UDim2.new(1, 0, 0, 57)
+					TextboxTitle2.Visible = true
+				else
+					Textbox.Size = UDim2.new(1, 0, 0, 46)
+					TextboxTitle2.Visible = false
+				end
 
-				ToggleButton.Font = Enum.Font.SourceSans
-				ToggleButton.Text = ""
-				ToggleButton.BackgroundTransparency = 1
-				ToggleButton.Size = UDim2.new(1, 0, 1, 0)
-				ToggleButton.Name = "ToggleButton"
-				ToggleButton.Parent = Toggle
+				TextboxButton.Font = Enum.Font.SourceSans
+				TextboxButton.Text = ""
+				TextboxButton.BackgroundTransparency = 1
+				TextboxButton.Size = UDim2.new(1, 0, 1, 0)
+				TextboxButton.Name = "TextboxButton"
+				TextboxButton.Parent = Textbox
 
 				FeatureFrame2.AnchorPoint = Vector2.new(1, 0.5)
 				FeatureFrame2.BackgroundTransparency = 0.92
@@ -2003,44 +2020,45 @@ function Chloex:Window(GuiConfig)
 				FeatureFrame2.Position = UDim2.new(1, -15, 0.5, 0)
 				FeatureFrame2.Size = UDim2.new(0, 30, 0, 15)
 				FeatureFrame2.Name = "FeatureFrame"
-				FeatureFrame2.Parent = Toggle
+				FeatureFrame2.Parent = Textbox
 
 				UICorner22.Parent = FeatureFrame2
-				local UIStroke8 = Instance.new("UIStroke")
+
 				UIStroke8.Color = Color3.fromRGB(255, 255, 255)
 				UIStroke8.Thickness = 2
 				UIStroke8.Transparency = 0.9
 				UIStroke8.Parent = FeatureFrame2
 
-				ToggleButton.Activated:Connect(function()
-					ToggleFunc.Value = not ToggleFunc.Value
-					ToggleFunc:Set(ToggleFunc.Value)
+				ToggleCircle.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+				ToggleCircle.BorderSizePixel = 0
+				ToggleCircle.Size = UDim2.new(0, 14, 0, 14)
+				ToggleCircle.Name = "ToggleCircle"
+				ToggleCircle.Parent = FeatureFrame2
+
+				UICorner23.CornerRadius = UDim.new(0, 15)
+				UICorner23.Parent = ToggleCircle
+
+				TextboxButton.Activated:Connect(function()
+					TextboxFunc.Value = TextInput.Text
+					TextboxFunc:Set(TextboxFunc.Value)
 				end)
 
-				function ToggleFunc:Set(Value)
-					if typeof(ToggleConfig.Callback) == "function" then
+				function TextboxFunc:Set(Value)
+					if typeof(TextboxConfig.Callback) == "function" then
 						local ok, err = pcall(function()
-							ToggleConfig.Callback(Value)
+							TextboxConfig.Callback(Value)
 						end)
 						if not ok then
-							warn("Toggle Callback error:", err)
+							warn("Textbox Callback error:", err)
 						end
 					end
 					ConfigData[configKey] = Value
-					if Value then
-						TweenService:Create(CheckMark, TweenInfo.new(0.2), { BackgroundColor3 = GuiConfig.Color })
-							:Play()
-					else
-						TweenService
-							:Create(CheckMark, TweenInfo.new(0.2), { BackgroundColor3 = Color3.fromRGB(255, 255, 255) })
-							:Play()
-					end
 				end
 
-				ToggleFunc:Set(ToggleFunc.Value)
+				TextboxFunc:Set(TextboxFunc.Value)
 				CountItem = CountItem + 1
-				Elements[configKey] = ToggleFunc
-				return ToggleFunc
+				Elements[configKey] = TextboxFunc
+				return TextboxFunc
 			end
 
 			function Items:AddSlider(SliderConfig)
