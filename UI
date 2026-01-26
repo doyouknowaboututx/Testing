@@ -2309,6 +2309,10 @@ function Chloex:Window(GuiConfig)
 				InputTextBox.TextTruncate = Enum.TextTruncate.AtEnd
 				InputTextBox.Parent = Input
 
+				local Padding = Instance.new("UIPadding")
+				Padding.PaddingLeft = UDim.new(0, 4)
+				Padding.Parent = InputTextBox
+
 				InputTextBox.Focused:Connect(function()
 					InputTextBox.CursorPosition = #InputTextBox.Text + 1
 				end)
