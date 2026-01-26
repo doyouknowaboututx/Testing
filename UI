@@ -749,16 +749,28 @@ function Chloex:Window(GuiConfig)
 	DecideFrame.Name = "DecideFrame"
 	DecideFrame.Parent = Main
 
-	DecideSaparator.AnchorPoint = Vector2.new(0.5, 0)
+	DecideSaparator.AnchorPoint = Vector2.new(0, 0)
 	DecideSaparator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	DecideSaparator.BackgroundTransparency = 0.85
 	DecideSaparator.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	DecideSaparator.BorderSizePixel = 0
-	DecideSaparator.Position = UDim2.new(0.2, 0, 0, 38)
-	DecideSaparator.Size = UDim2.new(0, 1, 1, -38)
 	DecideSaparator.Rotation = 0
 	DecideSaparator.Name = "DecideSaparator"
 	DecideSaparator.Parent = Main
+
+	local function UpdateSeparator()
+		local tabRight = 9 + GuiConfig["Tab Width"]
+		local mainW = Main.AbsoluteSize.X
+
+		local xScalePos = math.floor(mainW * 0.2)
+		local finalX = math.max(tabRight, xScalePos)
+
+		DecideSaparator.Position = UDim2.new(0, finalX, 0, 38)
+		DecideSaparator.Size = UDim2.new(0, 1, 1, -38)
+	end
+
+	UpdateSeparator()
+	Main:GetPropertyChangedSignal("AbsoluteSize"):Connect(UpdateSeparator)
 
 	Layers.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Layers.BackgroundTransparency = 0.9990000128746033
