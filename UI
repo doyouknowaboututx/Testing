@@ -2298,7 +2298,7 @@ function Chloex:Window(GuiConfig)
 				InputTextBox.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
 				InputTextBox.TextTransparency = 0.4
 				InputTextBox.Text = InputConfig.Default
-				InputTextBox.TextSize = 12
+				InputTextBox.TextSize = 11
 				InputTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 				InputTextBox.BackgroundTransparency = 0.92
 				InputTextBox.TextXAlignment = Enum.TextXAlignment.Center
@@ -2306,6 +2306,9 @@ function Chloex:Window(GuiConfig)
 				InputTextBox.AnchorPoint = Vector2.new(1, 0.5)
 				InputTextBox.Position = UDim2.new(1, -10, 0.5, 0)
 				InputTextBox.Size = UDim2.new(0, 120, 0, 24)
+				InputTextBox.TextXAlignment = Enum.TextXAlignment.Left
+				InputTextBox.ClipsDescendants = true
+				InputTextBox.TextTruncate = Enum.TextTruncate.AtEnd
 				InputTextBox.Parent = Input
 
 				InputTextBox.Focused:Connect(function()
