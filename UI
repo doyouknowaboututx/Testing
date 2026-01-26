@@ -1831,107 +1831,156 @@ function Chloex:Window(GuiConfig)
 			end
 
 			local function PressEffect(btn)
-	local basePos = btn.Position
-	local baseSize = btn.Size
-	local baseTextTr = btn.TextTransparency
+				local basePos = btn.Position
+				local baseSize = btn.Size
+				local baseTextTr = btn.TextTransparency
 
-	local down = TweenService:Create(
-		btn,
-		TweenInfo.new(0.06, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-		{
-			Position = basePos + UDim2.new(0, 0, 0, 2),
-			Size = baseSize - UDim2.new(0, 2, 0, 2),
-			TextTransparency = 0
-		}
-	)
+				local down =
+					TweenService:Create(btn, TweenInfo.new(0.06, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						Position = basePos + UDim2.new(0, 0, 0, 2),
+						Size = baseSize - UDim2.new(0, 2, 0, 2),
+						TextTransparency = 0,
+					})
 
-	local up = TweenService:Create(
-		btn,
-		TweenInfo.new(0.09, Enum.EasingStyle.Back, Enum.EasingDirection.Out),
-		{
-			Position = basePos,
-			Size = baseSize,
-			TextTransparency = baseTextTr
-		}
-	)
+				local up =
+					TweenService:Create(btn, TweenInfo.new(0.09, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+						Position = basePos,
+						Size = baseSize,
+						TextTransparency = baseTextTr,
+					})
 
-	down:Play()
-	down.Completed:Wait()
-	up:Play()
-end
+				down:Play()
+				down.Completed:Wait()
+				up:Play()
+			end
 
-function Items:AddButton(ButtonConfig)
-	ButtonConfig = ButtonConfig or {}
-	ButtonConfig.Title = ButtonConfig.Title or "Confirm"
-	ButtonConfig.Callback = ButtonConfig.Callback or function() end
-	ButtonConfig.SubTitle = ButtonConfig.SubTitle or nil
-	ButtonConfig.SubCallback = ButtonConfig.SubCallback or function() end
+			local function ShowConfirmOverlay(onConfirm)
+				local PlayerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-	local Button = Instance.new("Frame")
-	Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Button.BackgroundTransparency = 0.935
-	Button.Size = UDim2.new(1, 0, 0, 40)
-	Button.LayoutOrder = CountItem
-	Button.Parent = SectionAdd
-	Instance.new("UICorner", Button).CornerRadius = UDim.new(0, 4)
+				local Gui = Instance.new("ScreenGui")
+				Gui.ResetOnSpawn = false
+				Gui.Parent = PlayerGui
 
-	local Padding = 6
-	local Gap = 4
+				local Overlay = Instance.new("Frame")
+				Overlay.Size = UDim2.fromScale(1, 1)
+				Overlay.BackgroundColor3 = Color3.new(0, 0, 0)
+				Overlay.BackgroundTransparency = 0.35
+				Overlay.Parent = Gui
 
-	local MainButton = Instance.new("TextButton")
-	MainButton.Font = Enum.Font.Gotham
-	MainButton.Text = tostring(ButtonConfig.Title)
-	MainButton.TextSize = 12
-	MainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-	MainButton.TextTransparency = 0.3
-	MainButton.BackgroundTransparency = 1
-	MainButton.Parent = Button
-	MainButton.AutoButtonColor = true
-	MainButton.ZIndex = 10
-	Instance.new("UICorner", MainButton).CornerRadius = UDim.new(0, 4)
+				local Box = Instance.new("Frame")
+				Box.Size = UDim2.new(0, 260, 0, 120)
+				Box.Position = UDim2.fromScale(0.5, 0.5)
+				Box.AnchorPoint = Vector2.new(0.5, 0.5)
+				Box.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+				Box.Parent = Overlay
+				Instance.new("UICorner", Box).CornerRadius = UDim.new(0, 6)
 
-	if ButtonConfig.SubTitle then
-		MainButton.Size = UDim2.new(0.5, -Padding - Gap, 1, -10)
-		MainButton.Position = UDim2.new(0, Padding, 0, 5)
-	else
-		MainButton.Size = UDim2.new(1, -Padding * 2, 1, -10)
-		MainButton.Position = UDim2.new(0, Padding, 0, 5)
-	end
+				local Confirm = Instance.new("TextButton")
+				Confirm.Text = "Confirm"
+				Confirm.Font = Enum.Font.Gotham
+				Confirm.TextSize = 12
+				Confirm.Size = UDim2.new(0.5, -6, 0, 32)
+				Confirm.Position = UDim2.new(0, 6, 1, -38)
+				Confirm.BackgroundTransparency = 1
+				Confirm.TextColor3 = Color3.new(1, 1, 1)
+				Confirm.Parent = Box
 
-	MainButton.MouseButton1Down:Connect(function()
-		PressEffect(MainButton)
-	end)
+				local Cancel = Instance.new("TextButton")
+				Cancel.Text = "Cancel"
+				Cancel.Font = Enum.Font.Gotham
+				Cancel.TextSize = 12
+				Cancel.Size = UDim2.new(0.5, -6, 0, 32)
+				Cancel.Position = UDim2.new(0.5, 0, 1, -38)
+				Cancel.BackgroundTransparency = 1
+				Cancel.TextColor3 = Color3.new(1, 1, 1)
+				Cancel.Parent = Box
 
-	MainButton.MouseButton1Click:Connect(function()
-		pcall(ButtonConfig.Callback)
-	end)
+				Confirm.MouseButton1Click:Connect(function()
+					pcall(onConfirm)
+					Gui:Destroy()
+				end)
 
-	if ButtonConfig.SubTitle then
-		local SubButton = Instance.new("TextButton")
-		SubButton.Font = Enum.Font.Gotham
-		SubButton.Text = tostring(ButtonConfig.SubTitle)
-		SubButton.TextSize = 12
-		SubButton.TextTransparency = 0.3
-		SubButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-		SubButton.BackgroundTransparency = 1
-		SubButton.Size = UDim2.new(0.5, -Padding - Gap, 1, -10)
-		SubButton.Position = UDim2.new(0.5, Gap, 0, 5)
-		SubButton.Parent = Button
-		SubButton.AutoButtonColor = true
-		SubButton.ZIndex = 10
-		Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
+				Cancel.MouseButton1Click:Connect(function()
+					Gui:Destroy()
+				end)
+			end
 
-		SubButton.MouseButton1Down:Connect(function()
-			PressEffect(SubButton)
-		end)
+			function Items:AddButton(ButtonConfig)
+				ButtonConfig = ButtonConfig or {}
+				ButtonConfig.Title = ButtonConfig.Title or "Confirm"
+				ButtonConfig.Callback = ButtonConfig.Callback or function() end
+				ButtonConfig.SubTitle = ButtonConfig.SubTitle or nil
+				ButtonConfig.SubCallback = ButtonConfig.SubCallback or function() end
 
-		SubButton.MouseButton1Click:Connect(function()
-			pcall(ButtonConfig.SubCallback)
-		end)
-	end
+				local Button = Instance.new("Frame")
+				Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				Button.BackgroundTransparency = 0.935
+				Button.Size = UDim2.new(1, 0, 0, 40)
+				Button.LayoutOrder = CountItem
+				Button.Parent = SectionAdd
+				Instance.new("UICorner", Button).CornerRadius = UDim.new(0, 4)
 
-	CountItem += 1
-end
+				local Padding = 6
+				local Gap = 4
+
+				local MainButton = Instance.new("TextButton")
+				MainButton.Font = Enum.Font.Gotham
+				MainButton.Text = tostring(ButtonConfig.Title)
+				MainButton.TextSize = 12
+				MainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+				MainButton.TextTransparency = 0.3
+				MainButton.BackgroundTransparency = 1
+				MainButton.Parent = Button
+				MainButton.AutoButtonColor = true
+				MainButton.ZIndex = 10
+				Instance.new("UICorner", MainButton).CornerRadius = UDim.new(0, 4)
+
+				if ButtonConfig.SubTitle then
+					MainButton.Size = UDim2.new(0.5, -Padding - Gap, 1, -10)
+					MainButton.Position = UDim2.new(0, Padding, 0, 5)
+				else
+					MainButton.Size = UDim2.new(1, -Padding * 2, 1, -10)
+					MainButton.Position = UDim2.new(0, Padding, 0, 5)
+				end
+
+				MainButton.MouseButton1Down:Connect(function()
+					PressEffect(MainButton)
+				end)
+
+				MainButton.MouseButton1Click:Connect(function()
+					if ButtonConfig.Content == true then
+						ShowConfirmOverlay(ButtonConfig.Callback)
+					else
+						pcall(ButtonConfig.Callback)
+					end
+				end)
+
+				if ButtonConfig.SubTitle then
+					local SubButton = Instance.new("TextButton")
+					SubButton.Font = Enum.Font.Gotham
+					SubButton.Text = tostring(ButtonConfig.SubTitle)
+					SubButton.TextSize = 12
+					SubButton.TextTransparency = 0.3
+					SubButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+					SubButton.BackgroundTransparency = 1
+					SubButton.Size = UDim2.new(0.5, -Padding - Gap, 1, -10)
+					SubButton.Position = UDim2.new(0.5, Gap, 0, 5)
+					SubButton.Parent = Button
+					SubButton.AutoButtonColor = true
+					SubButton.ZIndex = 10
+					Instance.new("UICorner", SubButton).CornerRadius = UDim.new(0, 4)
+
+					SubButton.MouseButton1Down:Connect(function()
+						PressEffect(SubButton)
+					end)
+
+					SubButton.MouseButton1Click:Connect(function()
+						pcall(ButtonConfig.SubCallback)
+					end)
+				end
+
+				CountItem += 1
+			end
 
 			function Items:AddToggle(ToggleConfig)
 				local ToggleConfig = ToggleConfig or {}
