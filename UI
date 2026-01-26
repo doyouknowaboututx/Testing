@@ -2006,7 +2006,7 @@ function Chloex:Window(GuiConfig)
 				FeatureFrame2.Parent = Toggle
 
 				UICorner22.Parent = FeatureFrame2
-
+				local UIStroke8 = Instance.new("UIStroke")
 				UIStroke8.Color = Color3.fromRGB(255, 255, 255)
 				UIStroke8.Thickness = 2
 				UIStroke8.Transparency = 0.9
