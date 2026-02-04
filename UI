@@ -749,13 +749,23 @@ function Chloex:Window(GuiConfig)
 	DecideFrame.Name = "DecideFrame"
 	DecideFrame.Parent = Main
 
+	DecideFrame2.AnchorPoint = Vector2.new(0.5, 0)
+	DecideFrame2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	DecideFrame2.BackgroundTransparency = 0.85
+	DecideFrame2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	DecideFrame2.BorderSizePixel = 0
+	DecideFrame2.Position = UDim2.new(0.5, 0, 0, 366)
+	DecideFrame2.Size = UDim2.new(1, 0, 0, 1)
+	DecideFrame2.Name = "DecideFrame"
+	DecideFrame2.Parent = Main
+
 	DecideSaparator.AnchorPoint = Vector2.new(1, 0)
 	DecideSaparator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	DecideSaparator.BackgroundTransparency = 0.85
 	DecideSaparator.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	DecideSaparator.BorderSizePixel = 0
 	DecideSaparator.Position = UDim2.new(0.95, 0, 0, -11)
-	DecideSaparator.Size = UDim2.new(0, 1, 1, 19)
+	DecideSaparator.Size = UDim2.new(0, 1, 0, 0.96)
 	DecideSaparator.Rotation = 0
 	DecideSaparator.Name = "DecideSaparator"
 	DecideSaparator.Parent = LayersTab
@@ -830,7 +840,7 @@ function Chloex:Window(GuiConfig)
 	UserFooter.BackgroundTransparency = 0.92
 	UserFooter.BorderSizePixel = 0
 	UserFooter.AnchorPoint = Vector2.new(0, 1)
-	UserFooter.Position = UDim2.new(0, 0, 1, 0)
+	UserFooter.Position = UDim2.new(-0.06, 0, 0.95, 0)
 	UserFooter.Size = UDim2.new(1, 0, 0, footerH)
 	UserFooter.Parent = LayersTab
 
@@ -840,9 +850,10 @@ function Chloex:Window(GuiConfig)
 
 	local Headshot = Instance.new("ImageLabel")
 	Headshot.Name = "Headshot"
-	Headshot.BackgroundTransparency = 1
-	Headshot.Size = UDim2.new(0, 34, 0, 34)
-	Headshot.Position = UDim2.new(0, 10, 0.5, -17)
+	Headshot.BackgroundColor3 = Color3.fromRGB(0, 153, 187)
+	Headshot.BackgroundTransparency = 0.3
+	Headshot.Size = UDim2.new(0, 25, 0, 25)
+	Headshot.Position = UDim2.new(0, 10, 0.5, -3)
 	Headshot.Parent = UserFooter
 
 	local HS_Corner = Instance.new("UICorner")
@@ -854,18 +865,22 @@ function Chloex:Window(GuiConfig)
 	Username.BackgroundTransparency = 1
 	Username.Font = Enum.Font.Gotham
 	Username.TextColor3 = Color3.fromRGB(255, 255, 255)
-	Username.TextSize = 13
+	Username.TextSize = 12
 	Username.TextXAlignment = Enum.TextXAlignment.Left
-	Username.Position = UDim2.new(0, 52, 0, 0)
-	Username.Size = UDim2.new(1, -60, 1, 0)
+	Username.Position = UDim2.new(0, 42, 0, 9)
+	Username.Size = UDim2.new(1, -60, 1.01, 0)
 	Username.Parent = UserFooter
 
-	local name = LocalPlayer and LocalPlayer.Name or "User"
-	if #name > 3 then
-		Username.Text = string.sub(name, 1, 3) .. "..."
+	local rawName = LocalPlayer and LocalPlayer.Name or "User"
+	local shortName
+
+	if #rawName > 3 then
+		shortName = string.sub(rawName, 1, 3) .. "..."
 	else
-		Username.Text = name
+		shortName = rawName
 	end
+
+	Username.Text = "Welcome, " .. shortName
 
 	task.spawn(function()
 		local uid = LocalPlayer and LocalPlayer.UserId
