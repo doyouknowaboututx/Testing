@@ -755,11 +755,10 @@ function Chloex:Window(GuiConfig)
 	DecideFrame2.BackgroundTransparency = 0.85
 	DecideFrame2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	DecideFrame2.BorderSizePixel = 0
-	DecideFrame2.Position = UDim2.new(0.5, 0, UserFooter.Position.Y.Scale, UserFooter.Position.Y.Offset)
-	DecideFrame2.Position = DecideFrame2.Position + UDim2.new(0, 0, 0, -1)
+	DecideFrame2.Parent = LayersTab
+	DecideFrame2.Position = UDim2.new(0.5, 0, UserFooter.Position.Y.Scale, UserFooter.Position.Y.Offset - 1)
 	DecideFrame2.Size = UDim2.new(1, 0, 0, 1)
 	DecideFrame2.Name = "DecideFrame2"
-	DecideFrame2.Parent = Main
 
 	DecideSaparator.AnchorPoint = Vector2.new(1, 0)
 	DecideSaparator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -842,8 +841,8 @@ function Chloex:Window(GuiConfig)
 	UserFooter.BackgroundTransparency = 0.92
 	UserFooter.BorderSizePixel = 0
 	UserFooter.AnchorPoint = Vector2.new(0, 1)
-	UserFooter.Position = UDim2.new(-0.06, 0, 0.95, 0)
-	UserFooter.Size = UDim2.new(1, 0, 0, 0)
+	UserFooter.Position = UDim2.new(0, 0, 1, 0)
+	UserFooter.Size = UDim2.new(1, 0, 0, 36)
 	UserFooter.Parent = LayersTab
 
 	local UIC = Instance.new("UICorner")
