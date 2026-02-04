@@ -759,7 +759,7 @@ function Chloex:Window(GuiConfig)
 	DecideSaparator.Size = UDim2.new(0, 1, 0.96, 0)
 	DecideSaparator.Rotation = 0
 	DecideSaparator.Name = "DecideSaparator"
-	DecideSaparator.Parent = Main
+	DecideSaparator.Parent = LayersTab
 
 	Layers.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Layers.BackgroundTransparency = 0.9990000128746033
@@ -844,7 +844,7 @@ function Chloex:Window(GuiConfig)
 	Headshot.BackgroundColor3 = Color3.fromRGB(0, 153, 187)
 	Headshot.BackgroundTransparency = 0.3
 	Headshot.Size = UDim2.new(0, 25, 0, 25)
-	Headshot.Position = UDim2.new(0, 10, 0.5, -3)
+	Headshot.Position = UDim2.new(0, 10, 0.2, -3)
 	Headshot.Parent = UserFooter
 
 	local HS_Corner = Instance.new("UICorner")
@@ -858,7 +858,7 @@ function Chloex:Window(GuiConfig)
 	Username.TextColor3 = Color3.fromRGB(255, 255, 255)
 	Username.TextSize = 12
 	Username.TextXAlignment = Enum.TextXAlignment.Left
-	Username.Position = UDim2.new(0, 42, 0, 9)
+	Username.Position = UDim2.new(0, 42, 0, 0)
 	Username.Size = UDim2.new(1, -60, 1.01, 0)
 	Username.Parent = UserFooter
 
