@@ -766,7 +766,7 @@ function Chloex:Window(GuiConfig)
 	Layers.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Layers.BorderSizePixel = 0
 	Layers.Position = UDim2.new(0, GuiConfig["Tab Width"] + 8, 0, 50)
-	Layers.Size = UDim2.new(1, -(GuiConfig["Tab Width"] + 9 + 18), 1, -59)
+	Layers.Size = UDim2.new(1, -(GuiConfig["Tab Width"] + 9 + 18), 1, -95)
 	Layers.Name = "Layers"
 	Layers.Parent = Main
 
@@ -831,7 +831,7 @@ function Chloex:Window(GuiConfig)
 	UserFooter.BackgroundTransparency = 1
 	UserFooter.BorderSizePixel = 0
 	UserFooter.AnchorPoint = Vector2.new(0, 1)
-	UserFooter.Position = UDim2.new(0, 0, 1, 0)
+	UserFooter.Position = UDim2.new(-0.01, 2, 1, 0)
 	UserFooter.Size = UDim2.new(1, 0, 0, 36)
 	UserFooter.Parent = LayersTab
 
@@ -889,8 +889,8 @@ function Chloex:Window(GuiConfig)
 	DecideFrame2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	DecideFrame2.BorderSizePixel = 0
 	DecideFrame2.Parent = LayersTab
-	DecideFrame2.Position = UDim2.new(3, 0, 1, -27)
-	DecideFrame2.Size = UDim2.new(6.13, 0, 0, 1)
+	DecideFrame2.Position = UDim2.new(2.73, 0, 1, -26)
+	DecideFrame2.Size = UDim2.new(5.6, 0, 0, 1)
 	DecideFrame2.Name = "DecideFrame2"
 
 	function GuiFunc:DestroyGui()
