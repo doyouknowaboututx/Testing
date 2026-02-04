@@ -758,7 +758,7 @@ function Chloex:Window(GuiConfig)
 	DecideFrame2.Position = UDim2.new(0.5, 0, 0, 366)
 	DecideFrame2.Size = UDim2.new(1, 0, 0, 1)
 	DecideFrame2.Name = "DecideFrame2"
-	DecideFrame2.Parent = LayersTab
+	DecideFrame2.Parent = Main
 
 	DecideSaparator.AnchorPoint = Vector2.new(1, 0)
 	DecideSaparator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -769,7 +769,7 @@ function Chloex:Window(GuiConfig)
 	DecideSaparator.Size = UDim2.new(0, 1, 0.96, 0)
 	DecideSaparator.Rotation = 0
 	DecideSaparator.Name = "DecideSaparator"
-	DecideSaparator.Parent = LayersTab
+	DecideSaparator.Parent = Main
 
 	Layers.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Layers.BackgroundTransparency = 0.9990000128746033
