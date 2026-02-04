@@ -750,29 +750,6 @@ function Chloex:Window(GuiConfig)
 	DecideFrame.Name = "DecideFrame"
 	DecideFrame.Parent = Main
 
-	local DecideFrame2 = Instance.new("Frame")
-	DecideFrame2.Name = "DecideFrame2"
-	DecideFrame2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	DecideFrame2.BackgroundTransparency = 0.85
-	DecideFrame2.BorderSizePixel = 0
-	DecideFrame2.Parent = Main
-	DecideFrame2.AnchorPoint = Vector2.new(0, 0)
-	DecideFrame2.Size = UDim2.new(1, 0, 0, 1)
-
-	local function SyncDecideFrame2()
-		if not UserFooter or not UserFooter.Parent then
-			return
-		end
-		local y = UserFooter.AbsolutePosition.Y - Main.AbsolutePosition.Y
-		DecideFrame2.Position = UDim2.new(0, 0, 0, math.floor(y) - 1)
-	end
-
-	task.defer(SyncDecideFrame2)
-
-	UserFooter:GetPropertyChangedSignal("AbsolutePosition"):Connect(SyncDecideFrame2)
-	UserFooter:GetPropertyChangedSignal("AbsoluteSize"):Connect(SyncDecideFrame2)
-	Main:GetPropertyChangedSignal("AbsoluteSize"):Connect(SyncDecideFrame2)
-
 	DecideSaparator.AnchorPoint = Vector2.new(1, 0)
 	DecideSaparator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	DecideSaparator.BackgroundTransparency = 0.85
@@ -905,6 +882,24 @@ function Chloex:Window(GuiConfig)
 			:GetUserThumbnailAsync(uid, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100)
 		Headshot.Image = content
 	end)
+
+	DecideFrame2.Name = "DecideFrame2"
+	DecideFrame2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	DecideFrame2.BackgroundTransparency = 0.85
+	DecideFrame2.BorderSizePixel = 0
+	DecideFrame2.Parent = Main
+	DecideFrame2.AnchorPoint = Vector2.new(0, 0)
+	DecideFrame2.Size = UDim2.new(1, 0, 0, 1)
+
+	local function SyncDecideFrame2()
+		local y = UserFooter.AbsolutePosition.Y - Main.AbsolutePosition.Y
+		DecideFrame2.Position = UDim2.new(0, 0, 0, math.floor(y) - 1)
+	end
+
+	SyncDecideFrame2()
+	UserFooter:GetPropertyChangedSignal("AbsolutePosition"):Connect(SyncDecideFrame2)
+	UserFooter:GetPropertyChangedSignal("AbsoluteSize"):Connect(SyncDecideFrame2)
+	Main:GetPropertyChangedSignal("AbsoluteSize"):Connect(SyncDecideFrame2)
 
 	function GuiFunc:DestroyGui()
 		if CoreGui:FindFirstChild("Chloeex") then
