@@ -750,16 +750,6 @@ function Chloex:Window(GuiConfig)
 	DecideFrame.Name = "DecideFrame"
 	DecideFrame.Parent = Main
 
-	DecideFrame2.AnchorPoint = Vector2.new(0.5, 1)
-	DecideFrame2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	DecideFrame2.BackgroundTransparency = 0.85
-	DecideFrame2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	DecideFrame2.BorderSizePixel = 0
-	DecideFrame2.Parent = LayersTab
-	DecideFrame2.Position = UDim2.new(0.5, 0, UserFooter.Position.Y.Scale, UserFooter.Position.Y.Offset - 1)
-	DecideFrame2.Size = UDim2.new(1, 0, 0, 1)
-	DecideFrame2.Name = "DecideFrame2"
-
 	DecideSaparator.AnchorPoint = Vector2.new(1, 0)
 	DecideSaparator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	DecideSaparator.BackgroundTransparency = 0.85
@@ -892,6 +882,16 @@ function Chloex:Window(GuiConfig)
 			:GetUserThumbnailAsync(uid, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100)
 		Headshot.Image = content
 	end)
+
+	DecideFrame2.AnchorPoint = Vector2.new(0.5, 1)
+	DecideFrame2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	DecideFrame2.BackgroundTransparency = 0.85
+	DecideFrame2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	DecideFrame2.BorderSizePixel = 0
+	DecideFrame2.Parent = LayersTab
+	DecideFrame2.Position = UDim2.new(0.5, 0, UserFooter.Position.Y.Scale, UserFooter.Position.Y.Offset - 1)
+	DecideFrame2.Size = UDim2.new(1, 0, 0, 1)
+	DecideFrame2.Name = "DecideFrame2"
 
 	function GuiFunc:DestroyGui()
 		if CoreGui:FindFirstChild("Chloeex") then
