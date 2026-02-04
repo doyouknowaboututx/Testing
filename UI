@@ -748,17 +748,25 @@ function Chloex:Window(GuiConfig)
 	DecideFrame.Position = UDim2.new(0.5, 0, 0, 38)
 	DecideFrame.Size = UDim2.new(1, 0, 0, 1)
 	DecideFrame.Name = "DecideFrame"
-	DecideFrame.Parent = Main
+	DecideFrame.Parent = main
 
-	DecideFrame2.AnchorPoint = Vector2.new(0.5, 0)
+	DecideFrame2.Name = "DecideFrame2"
 	DecideFrame2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	DecideFrame2.BackgroundTransparency = 0.85
-	DecideFrame2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	DecideFrame2.BorderSizePixel = 0
-	DecideFrame2.Position = UDim2.new(0.5, 0, 0, 366)
-	DecideFrame2.Size = UDim2.new(1, 0, 0, 1)
-	DecideFrame2.Name = "DecideFrame2"
 	DecideFrame2.Parent = Main
+	DecideFrame2.AnchorPoint = Vector2.new(0, 0)
+	DecideFrame2.Size = UDim2.new(1, 0, 0, 1)
+
+	local function SyncDecideFrame2()
+		local y = UserFooter.AbsolutePosition.Y - Main.AbsolutePosition.Y
+		DecideFrame2.Position = UDim2.new(0, 0, 0, math.floor(y) - 1)
+	end
+
+	SyncDecideFrame2()
+	UserFooter:GetPropertyChangedSignal("AbsolutePosition"):Connect(SyncDecideFrame2)
+	UserFooter:GetPropertyChangedSignal("AbsoluteSize"):Connect(SyncDecideFrame2)
+	Main:GetPropertyChangedSignal("AbsoluteSize"):Connect(SyncDecideFrame2)
 
 	DecideSaparator.AnchorPoint = Vector2.new(1, 0)
 	DecideSaparator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -769,7 +777,7 @@ function Chloex:Window(GuiConfig)
 	DecideSaparator.Size = UDim2.new(0, 1, 0.96, 0)
 	DecideSaparator.Rotation = 0
 	DecideSaparator.Name = "DecideSaparator"
-	DecideSaparator.Parent = LayersTab
+	DecideSaparator.Parent = Main
 
 	Layers.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Layers.BackgroundTransparency = 0.9990000128746033
@@ -882,16 +890,6 @@ function Chloex:Window(GuiConfig)
 	end
 
 	Username.Text = "Welcome, " .. shortName
-
-	task.spawn(function()
-		local uid = LocalPlayer and LocalPlayer.UserId
-		if not uid then
-			return
-		end
-		local content = game:GetService("Players")
-			:GetUserThumbnailAsync(uid, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100)
-		Headshot.Image = content
-	end)
 
 	task.spawn(function()
 		local uid = LocalPlayer and LocalPlayer.UserId
