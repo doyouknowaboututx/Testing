@@ -750,6 +750,16 @@ function Chloex:Window(GuiConfig)
 	DecideFrame.Name = "DecideFrame"
 	DecideFrame.Parent = Main
 
+	DecideFrame2.AnchorPoint = Vector2.new(0.5, 0)
+	DecideFrame2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	DecideFrame2.BackgroundTransparency = 0.85
+	DecideFrame2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	DecideFrame2.BorderSizePixel = 0
+	DecideFrame2.Position = UDim2.new(0.5, 0, 0, 366)
+	DecideFrame2.Size = UDim2.new(1, 0, 0, 1)
+	DecideFrame2.Name = "DecideFrame2"
+	DecideFrame2.Parent = Main
+
 	DecideSaparator.AnchorPoint = Vector2.new(1, 0)
 	DecideSaparator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	DecideSaparator.BackgroundTransparency = 0.85
@@ -831,9 +841,9 @@ function Chloex:Window(GuiConfig)
 	UserFooter.BackgroundTransparency = 1
 	UserFooter.BorderSizePixel = 0
 	UserFooter.AnchorPoint = Vector2.new(0, 1)
-	UserFooter.Position = UDim2.new(-0.01, 2, 1, 0)
+	UserFooter.Position = UDim2.new(0, 0, 1, 0)
 	UserFooter.Size = UDim2.new(1, 0, 0, 36)
-	UserFooter.Parent = LayersTab
+	UserFooter.Parent = Main
 
 	local UIC = Instance.new("UICorner")
 	UIC.CornerRadius = UDim.new(0, 4)
@@ -883,15 +893,15 @@ function Chloex:Window(GuiConfig)
 		Headshot.Image = content
 	end)
 
-	DecideFrame2.AnchorPoint = Vector2.new(0.5, 1)
-	DecideFrame2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	DecideFrame2.BackgroundTransparency = 0.85
-	DecideFrame2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	DecideFrame2.BorderSizePixel = 0
-	DecideFrame2.Parent = LayersTab
-	DecideFrame2.Position = UDim2.new(0.5, 0, 1, -36)
-	DecideFrame2.Size = UDim2.new(1, 0, 0, 1)
-	DecideFrame2.Name = "DecideFrame2"
+	task.spawn(function()
+		local uid = LocalPlayer and LocalPlayer.UserId
+		if not uid then
+			return
+		end
+		local content = game:GetService("Players")
+			:GetUserThumbnailAsync(uid, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100)
+		Headshot.Image = content
+	end)
 
 	function GuiFunc:DestroyGui()
 		if CoreGui:FindFirstChild("Chloeex") then
