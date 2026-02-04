@@ -889,8 +889,8 @@ function Chloex:Window(GuiConfig)
 	DecideFrame2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	DecideFrame2.BorderSizePixel = 0
 	DecideFrame2.Parent = LayersTab
-	DecideFrame2.Position = UDim2.new(2.73, 0, 1, -26)
-	DecideFrame2.Size = UDim2.new(5.6, 0, 0, 1)
+	DecideFrame2.Position = UDim2.new(0.5, 0, 1, -36)
+	DecideFrame2.Size = UDim2.new(1, 0, 0, 1)
 	DecideFrame2.Name = "DecideFrame2"
 
 	function GuiFunc:DestroyGui()
