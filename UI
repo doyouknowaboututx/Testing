@@ -824,37 +824,33 @@ function Chloex:Window(GuiConfig)
 	ScrollTab.ChildAdded:Connect(UpdateSize1)
 	ScrollTab.ChildRemoved:Connect(UpdateSize1)
 
-	local FooterBg = Instance.new("Frame")
-	FooterBg.Name = "FooterBg"
-	FooterBg.AnchorPoint = Vector2.new(0, 1)
-	FooterBg.Position = UDim2.new(0, 0, 1, 0)
-	FooterBg.Size = UDim2.new(1, 0, 0, footerH)
-	FooterBg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	FooterBg.BackgroundTransparency = 0.935
-	FooterBg.BorderSizePixel = 0
-	FooterBg.Parent = LayersTab
-
-	local BgCorner = Instance.new("UICorner")
-	BgCorner.CornerRadius = UDim.new(0, 4)
-	BgCorner.Parent = FooterBg
-
 	local UserFooter = Instance.new("Frame")
 	UserFooter.Name = "UserFooter"
-	UserFooter.BackgroundTransparency = 1
-	UserFooter.Size = UDim2.new(1, 0, 1, 0)
-	UserFooter.Parent = FooterBg
+	UserFooter.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	UserFooter.BackgroundTransparency = 0.92
+	UserFooter.BorderSizePixel = 0
+	UserFooter.AnchorPoint = Vector2.new(0, 1)
+	UserFooter.Position = UDim2.new(0, 0, 1, 0)
+	UserFooter.Size = UDim2.new(1, 0, 0, footerH)
+	UserFooter.Parent = LayersTab
+
+	local UIC = Instance.new("UICorner")
+	UIC.CornerRadius = UDim.new(0, 4)
+	UIC.Parent = UserFooter
 
 	local Headshot = Instance.new("ImageLabel")
+	Headshot.Name = "Headshot"
 	Headshot.BackgroundTransparency = 1
 	Headshot.Size = UDim2.new(0, 34, 0, 34)
 	Headshot.Position = UDim2.new(0, 10, 0.5, -17)
 	Headshot.Parent = UserFooter
 
-	local HSCorner = Instance.new("UICorner")
-	HSCorner.CornerRadius = UDim.new(1, 0)
-	HSCorner.Parent = Headshot
+	local HS_Corner = Instance.new("UICorner")
+	HS_Corner.CornerRadius = UDim.new(1, 0)
+	HS_Corner.Parent = Headshot
 
 	local Username = Instance.new("TextLabel")
+	Username.Name = "Username"
 	Username.BackgroundTransparency = 1
 	Username.Font = Enum.Font.Gotham
 	Username.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -876,9 +872,9 @@ function Chloex:Window(GuiConfig)
 		if not uid then
 			return
 		end
-		local img = game:GetService("Players")
+		local content = game:GetService("Players")
 			:GetUserThumbnailAsync(uid, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100)
-		Headshot.Image = img
+		Headshot.Image = content
 	end)
 
 	function GuiFunc:DestroyGui()
